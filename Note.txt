@@ -1,0 +1,34 @@
+https://api.kraken.com/0/public/OHLC?pair=BTCUSDT&interval=15&since=1548111600
+
+
+update trend line 
+
+
+# breakout
+
+- breakout happen then reversed
+if true breakout 
+ - new trend line 
+   support = last resist
+   resist  = top hl of last range
+if false breakout 
+ -  last trend line
+
+# close position
+- 
+
+2024
+
+
+ - don't take long after bearish breakeout
+ - after breakout if open cross the last hl/lh take position
+ - retest. if  lh > last lh or  hl < last hl  
+ - await 5th hl, lh retest if not price touch support or resist
+ - after reversal wait for new  hl, lh and update  support or resist as  hl, lh
+
+
+
+
+
+
+ec2-user@ec2-3-110-222-13.ap-south-1.compute.amazonaws.com
