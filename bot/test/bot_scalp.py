@@ -353,6 +353,41 @@ class TradingBot:
 
     # R U N
     def run(self):
+        # Fetch positions for all symbols
+        def get_open_positions(user_exchange, symbol):
+            try:
+                balance = user_exchange.fetch_balance({'type': 'future'})
+                positions = balance['info']['positions']
+
+                # Find the position for the specific symbol
+                for position in positions:
+                    if position['symbol'] == symbol:
+                        if float(position['positionAmt']) != 0:
+                            return position
+                        else:
+                            return None
+            except Exception as e:
+                print(f"Error: {e}")
+                return None
+
+
+        # Call the function to get open positions
+        open_positions = get_open_positions(exchange, symbol)
+
+        # Print the open positions
+        if open_positions:
+            print(f"Symbol: {open_positions['symbol']}")
+            print(f"Position Amount: {open_positions['positionAmt']}")
+            print(f"Entry Price: {open_positions['entryPrice']}")
+            print(f"Unrealized PnL: {open_positions['unrealizedProfit']}")
+            print(f"Leverage: {open_positions['leverage']}")
+            print(f"Side: {'Long' if float(open_positions['positionAmt']) > 0 else 'Short'}")
+        else:
+            print(f"No open position for {symbol}.")
+
+
+        return
+    
         while True:
             this_minute = datetime.today().minute
             abs_num = this_minute/1

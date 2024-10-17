@@ -1,10 +1,14 @@
 import ccxt
+from ccxt.base.errors import NetworkError
 import time
 from datetime import datetime
 import json
 import math
 import logging
-from ccxt.base.errors import NetworkError
+import asyncio
+import pytz
+from order import get_position 
+
 
 from config import accounts, symbols, timeframe, leverage, amount_usdt 
 from order import long, short, close_position, check_balance, create_exchange_instances
@@ -148,20 +152,33 @@ class TradingBot:
                 pass # entry 
 
 
-        def EXIT():
+        async def EXIT():
             self.isOrderPlaced = False
             self.targetReach = False
             self.active_pair = None
 
+            tasks = []
             if not self.test:
+               
                 for username, user_exchange in self.users:
                     try:
-                        close_order = close_position(user_exchange, symbol, self.sell_amount,  'buy' if self.side == 'SHORT' else 'sell')
-                        if close_order:
-                                log(f"{self.side} closed successfully for account {username}:\n{str(close_order)}")
-                                time.sleep(1)
+                        task = close_position(user_exchange, symbol, 'buy' if self.side == 'SHORT' else 'sell')
+                        tasks.append((username, task))  # Keep track of username for logging
                     except Exception as e:
                         log(f"Error closing order for account {username}: {e}")
+                
+                # Run all tasks concurrently
+                results = await asyncio.gather(*(task for _, task in tasks), return_exceptions=True)
+                # Process results
+                for (username, _), result in zip(tasks, results):
+                    if isinstance(result, Exception):
+                        log(f"Error closing order for account {username}: {result}")
+                    else:
+                        log(f"{self.side} closed successfully for account {username}:\n{str(result)}")
+                        await asyncio.sleep(1)  # Non-blocking sleep
+
+               
+               
                 trigger_notification(f'CLOSE {self.side}', f'{symbol}, {self.sell_amount}')
                 self.side = None
                 pass # exit 
@@ -192,20 +209,20 @@ class TradingBot:
                     self.targetReach = True
                     if isBullish:
                         log(f"{t} EXIT WIN {price}")
-                        EXIT()
+                        asyncio.run(EXIT())
                     pass
 
                 # STOP LOSS
                 if price > sl:
                     log(f"{t} EXIT SL {price}")
-                    EXIT()
+                    asyncio.run(EXIT())
                     pass
 
                 # Target hit
                 if (price < targetS or candles[i-1][3] < targetS) and self.isOrderPlaced: self.targetReach = True
                 if self.targetReach and price > targetS:
                     log(f"{t} MIN TARGET EXIT SHORT {price}")
-                    EXIT()
+                    asyncio.run(EXIT())
 
 
         
@@ -216,26 +233,26 @@ class TradingBot:
                     self.targetReach = True
                     if not isBullish:
                         log(f"{t} EXIT WIN {price}")
-                        EXIT()
+                        asyncio.run(EXIT())
                     pass
 
                 # STOP LOSS
                 if price < sl:
                     log(f"{t} EXIT SL {price}")
-                    EXIT()
+                    asyncio.run(EXIT())
                     pass
 
                 # Target hit
                 if (price > targetL or candles[i-1][2] > targetL) and self.isOrderPlaced: self.targetReach = True
                 if self.targetReach and price < targetL:
                     log(f"{t} MIN TARGET EXIT LONG {price}")
-                    EXIT()
+                    asyncio.run(EXIT())
 
 
 
-            if(t == datetime.now().strftime('%H:%M')):
-                print(t, end='\r', flush=True) 
-                pass
+            # if(t == datetime.now().strftime('%H:%M')):
+            #     print(t, end='\r', flush=True) 
+            #     pass
 
 
         
@@ -245,7 +262,7 @@ class TradingBot:
                 print(datetime.now().strftime('%H:%M'), f"▼ at {t} (open: {price}) {i} n-{n-1}")
                 if self.side != "SHORT":
                     # print(self.isOrderPlaced, self.side, self.targetReach)
-                    log(f"\n{t} ============ {symbol} SHORT =============== {price}")
+                    log(f"\n\n\n\n\n{t} ============ {symbol} SHORT =============== {price}")
                     self.side = "SHORT"
                     self.entryPrice = price
                     self.initialTarget = top
@@ -257,7 +274,7 @@ class TradingBot:
                 print(datetime.now().strftime('%H:%M'), f"▲ at {t} (open: {price}) {i} n{n-1}")
                 if self.side != "LONG":
                     # print(self.isOrderPlaced, self.side, self.targetReach)
-                    log(f"\n{t} ============ {symbol} LONG =============== {price}" )
+                    log(f"\n\n\n\n\n{t} ============ {symbol} LONG =============== {price}" )
                     self.side = "LONG"
                     self.entryPrice = price
                     self.initialTarget = bot
@@ -275,9 +292,11 @@ class TradingBot:
         self.users = create_exchange_instances(accounts).items()
 
         while True:
+           
             this_minute = datetime.today().minute
             abs_num = this_minute/1
             
+
             if abs_num == round(abs_num):
 
                 if self.isOrderPlaced:
@@ -287,19 +306,19 @@ class TradingBot:
                     for symbol in symbols:
                         if self.isOrderPlaced:
                             break;
-                        print(symbol, end='\r\n', flush=True) 
+                        print(datetime.today().strftime('%H:%M') + ' ' + symbol, end='\r', flush=True)
                         self.analyse(symbol)
                         time.sleep(2) 
                 
                 time.sleep(60)  # 5min ,Run every 15 minutes
-                
+            
+            
 
 
 
 def main():
     bot = TradingBot(test=False)
     bot.run()
-
 
 if __name__ == "__main__":
     main()
