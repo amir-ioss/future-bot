@@ -1,3 +1,8 @@
+import sys
+import os
+# Add the parent directory to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import ccxt
 from ccxt.base.errors import NetworkError
 import time
@@ -6,9 +11,8 @@ import json
 import math
 import logging
 import asyncio
-import pytz
-from order import get_position 
 
+from db.store import Store  # Use absolute import
 
 from config import accounts, symbols, timeframe, leverage, amount_usdt 
 from order import long, short, close_position, check_balance, create_exchange_instances
@@ -74,6 +78,7 @@ class TradingBot:
         self.sell_amount = 0
         self.targetReach = False
         self.initialTarget = 0
+        self.store = Store()
        
         
 
@@ -249,10 +254,11 @@ class TradingBot:
                     asyncio.run(EXIT())
 
 
-
             # if(t == datetime.now().strftime('%H:%M')):
-            #     print(t, end='\r', flush=True) 
+            #     # print(f'{t}', end='\r', flush=True) 
+            #     print(f'{t}  min-target: {targetS if self.side == "SHORT" else targetL}', end='\r', flush=True) 
             #     pass
+
 
 
         
@@ -262,7 +268,7 @@ class TradingBot:
                 print(datetime.now().strftime('%H:%M'), f"▼ at {t} (open: {price}) {i} n-{n-1}")
                 if self.side != "SHORT":
                     # print(self.isOrderPlaced, self.side, self.targetReach)
-                    log(f"\n\n\n\n\n{t} ============ {symbol} SHORT =============== {price}")
+                    log(f"\n\n\n\n\n{t} ============ {symbol} SHORT =============== on: {price}, SL: {price + ch}")
                     self.side = "SHORT"
                     self.entryPrice = price
                     self.initialTarget = top
@@ -274,14 +280,14 @@ class TradingBot:
                 print(datetime.now().strftime('%H:%M'), f"▲ at {t} (open: {price}) {i} n{n-1}")
                 if self.side != "LONG":
                     # print(self.isOrderPlaced, self.side, self.targetReach)
-                    log(f"\n\n\n\n\n{t} ============ {symbol} LONG =============== {price}" )
+                    log(f"\n\n\n\n\n{t} ============ {symbol} LONG =============== on: {price}, SL: {price - ch}" )
                     self.side = "LONG"
                     self.entryPrice = price
                     self.initialTarget = bot
                     ENTRY("LONG")
 
 
-        return self.side, candles[-1]
+        return self.side, candles[-1], targetL, targetS
         # end of analyses
 
 
@@ -300,14 +306,15 @@ class TradingBot:
             if abs_num == round(abs_num):
 
                 if self.isOrderPlaced:
-                    self.analyse(self.active_pair)
+                    side, candle, targetL, targetS = self.analyse(self.active_pair)
+                    print(f"{datetime.today().strftime('%H:%M')}  min-target: {targetS if side == 'SHORT' else targetL}") 
 
                 else:
                     for symbol in symbols:
                         if self.isOrderPlaced:
                             break;
-                        print(datetime.today().strftime('%H:%M') + ' ' + symbol, end='\r', flush=True)
                         self.analyse(symbol)
+                        print(f"{datetime.today().strftime('%H:%M')} {symbol}", end='\r', flush=True)
                         time.sleep(2) 
                 
                 time.sleep(60)  # 5min ,Run every 15 minutes
@@ -319,6 +326,9 @@ class TradingBot:
 def main():
     bot = TradingBot(test=False)
     bot.run()
+    # st = Store()
+    # st.setState('scalp', {'car': "BENZ"})
+    # print(st.getState('scalp'))
 
 if __name__ == "__main__":
     main()

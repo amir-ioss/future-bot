@@ -31,11 +31,12 @@ if false breakout
 
 
 
-ssh -i scalp.pem ec2-user@ec2-3-110-222-13.ap-south-1.compute.amazonaws.com
+ssh -i scalp.pem ec2-user@ec2-3-110-104-148.ap-south-1.compute.amazonaws.com
 
 nohup python3 main.py > nohup.log 2>&1 &
 ps aux | grep python
 
-scp -i scalp.pem /home/ioss/Documents/Learn/future-bot/bot/scalp.zip ec2-user@ec2-3-110-222-13.ap-south-1.compute.amazonaws.com:/home/ec2-user
+scp -i scalp.pem /home/ioss/Documents/Learn/future-bot/bot/scalp.zip ec2-user@ec2-3-110-104-148.ap-south-1.compute.amazonaws.com:/home/ec2-user
 
-http://3.110.222.13
+http://3.110.104.148
+
