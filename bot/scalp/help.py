@@ -39,3 +39,10 @@ def timestamp_to_HHMM(timestamp_ms):
     formatted_time = dt_object.strftime('%H:%M')
     
     return formatted_time
+
+
+
+def perc_diff(a, b):
+    if a == b:
+        return 0  # No difference if the numbers are the same
+    return abs(a - b) / ((a + b) / 2) * 100
