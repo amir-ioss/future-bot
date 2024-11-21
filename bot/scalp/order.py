@@ -32,10 +32,16 @@ def create_exchange_instances(accounts):
 
 
 
-def long(user_exchange, symbol, amount_usdt):
+async def long(user_exchange, symbol, amount_usdt):
+    position = get_position(user_exchange, symbol)  # Check if position still exists
+    if position and position['positionSide'] == "SHORT":
+        exit_remains = user_exchange.create_market_order(symbol, 'buy', position['positionAmt'])
+        log("close remaining SHORT order....",exit_remains)
+        pass
+
     # Check balance
     usdt_balance = check_balance(user_exchange)
-    log(f'Balance : {usdt_balance}')
+    # log(f'Balance : {usdt_balance}')
     
     if usdt_balance < (amount_usdt/leverage) :
         log(f"Insufficient balance. Available: {usdt_balance} USDT, Required: {amount_usdt} USDT")
@@ -47,15 +53,21 @@ def long(user_exchange, symbol, amount_usdt):
     amount = amount_usdt / price
     
     # Create a market buy order
-    order = user_exchange.create_market_order(symbol, 'buy', amount)
+    order =  user_exchange.create_market_order(symbol, 'buy', amount)
 
     
     return order
 
-def short(user_exchange, symbol, amount_usdt):
+async def short(user_exchange, symbol, amount_usdt):
+    position = get_position(user_exchange, symbol)  # Check if position still exists
+    if position and position['positionSide'] == "LONG":
+        exit_remains = user_exchange.create_market_order(symbol, 'sell', position['positionAmt'])
+        log("close remaining LONG order....",exit_remains)
+        pass
+
     # Check balance
     usdt_balance = check_balance(user_exchange)
-    log(f'Balance : {usdt_balance}')
+    # log(f'Balance : {usdt_balance}')
 
     if usdt_balance < (amount_usdt/leverage):
         log(f"Insufficient balance. Available: {usdt_balance} USDT, Required: {amount_usdt} USDT")
@@ -67,7 +79,7 @@ def short(user_exchange, symbol, amount_usdt):
     amount = amount_usdt / price # base currency
     
     # Create a market sell order to open a short position
-    order = user_exchange.create_market_order(symbol, 'sell', amount)
+    order =  user_exchange.create_market_order(symbol, 'sell', amount)
 
 
     return order
@@ -80,17 +92,6 @@ def short(user_exchange, symbol, amount_usdt):
 import asyncio
 
 async def close_position(user_exchange, symbol, side, max_retries=3, delay=2):
-    """
-    Attempts to close a position asynchronously. If the position is not closed,
-    it retries up to 'max_retries' times with a non-blocking delay using asyncio.
-
-    :param user_exchange: The Binance exchange object (ccxt).
-    :param symbol: The trading pair symbol (e.g., 'BTCUSDT').
-    :param side: 'buy' or 'sell', depending on the position direction.
-    :param max_retries: Maximum number of retries if closing fails.
-    :param delay: Delay in seconds between retry attempts.
-    :return: The final order response or an error message.
-    """
     try:
         # Initial attempt to close the position
         for attempt in range(max_retries):
@@ -124,13 +125,6 @@ async def close_position(user_exchange, symbol, side, max_retries=3, delay=2):
 
 
 def get_position(user_exchange, symbol):
-    """
-    Fetch the specific position for the given symbol and check if it's open.
-
-    :param user_exchange: The Binance exchange object (ccxt).
-    :param symbol: The trading pair symbol (e.g., 'BTCUSDT').
-    :return: Position if open, otherwise None.
-    """
     try:
         balance = user_exchange.fetch_balance({'type': 'future'})
         positions = balance['info']['positions']

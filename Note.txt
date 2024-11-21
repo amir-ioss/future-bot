@@ -38,9 +38,13 @@ ps aux | grep python
 
 nohup python3 log.py > nohup.log 2>&1 &
 
-
+upload
 scp -i scalp.pem /home/ioss/Documents/Learn/future-bot/bot/scalp.zip ec2-user@ec2-3-110-104-148.ap-south-1.compute.amazonaws.com:/home/ec2-user
 
 http://3.110.104.148
 
 scp -i scalp.pem /home/ioss/Documents/Learn/future-bot/bot.zip ec2-user@ec2-3-110-104-148.ap-south-1.compute.amazonaws.com:/home/ec2-user
+
+
+download
+scp -i scalp.pem ec2-user@ec2-3-110-104-148.ap-south-1.compute.amazonaws.com:/home/ec2-user/bot/scalp/log_bkp.txt /home/ioss/Documents/Learn/future-bot

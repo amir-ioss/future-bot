@@ -9,7 +9,6 @@ import time
 from datetime import datetime
 import json
 import math
-import logging
 import asyncio
 
 
@@ -23,11 +22,11 @@ from db.store import Store, checkInSL  # Use absolute import
 
 # Initialize your exchange
 exchange = ccxt.binance({
-    # 'apiKey': accounts[0]['api_key'], # master account
-    # 'secret': accounts[0]['api_secret'], # master account
+    'apiKey': accounts[0]['api_key'], # master account
+    'secret': accounts[0]['api_secret'], # master account
     'enableRateLimit': True,
     'options': {
-        # 'defaultType': 'future'  # Use 'spot' for spot trading, 'future' for Futures
+        'defaultType': 'future'  # Use 'spot' for spot trading, 'future' for Futures
     }
 })
 
@@ -138,13 +137,14 @@ class TradingBot:
 
         sae = sae / min(minRange, n - 1) * mult
 
-        def ENTRY(type='LONG'):
+        async def ENTRY(type='LONG'):
             self.isOrderPlaced = True
             self.targetReach = False
             self.active_pair = symbol
             if not self.test:
                 # Iterate over the accounts and place the long order
                 # for account in accounts:
+                tasks = []
                 for username, user_exchange in self.users:
                     try:
                         # Set leverage if needed (optional)
@@ -155,13 +155,25 @@ class TradingBot:
 
                         # Place the long order
                         new_order = long(user_exchange, symbol, amount_usdt) if type == 'LONG' else short(user_exchange, symbol, amount_usdt)
-                        if new_order:
-                                log(f"Order placed for account {username}:\n{str(new_order)}")
-                                # Calculate the amount of BTC to sell
-                                self.sell_amount = new_order['amount']  # Amount to close
-                                time.sleep(1)
+                        tasks.append((username, new_order)) 
+                        # if new_order:
+                        #         log(f"Order placed for account {username}:\n{str(new_order)}")
+                        #         # Calculate the amount of BTC to sell
+                        #         self.sell_amount = new_order['amount']  # Amount to close
+                        #         time.sleep(1)
                     except Exception as e:
                         log(f"Error placing order for account {username}: {e}")
+                
+                # Run all tasks concurrently
+                results = await asyncio.gather(*(task for _, task in tasks), return_exceptions=True)
+                # Process results
+                for (username, _), result in zip(tasks, results):
+                    if isinstance(result, Exception):
+                        log(f"Error placing order for account {username}: {result}")
+                    else:
+                        log(f"{self.side} order placed for account {username}:\n{str(result)}")
+                        # await asyncio.sleep(1)  # Non-blocking sleep
+
 
                 trigger_notification(type, f'{symbol}, size: {amount_usdt}* USDT')
                 pass # entry 
@@ -190,7 +202,7 @@ class TradingBot:
                         log(f"Error closing order for account {username}: {result}")
                     else:
                         log(f"{self.side} closed successfully for account {username}:\n{str(result)}")
-                        await asyncio.sleep(1)  # Non-blocking sleep
+                        # await asyncio.sleep(1)  # Non-blocking sleep
 
                
                
@@ -198,7 +210,6 @@ class TradingBot:
                 self.side = None
                 pass # exit 
 
-                
         # Loop to print lines instead of drawing
         for i in range(min(minRange, n - 1) + 1):
 
@@ -309,7 +320,8 @@ class TradingBot:
                     self.side = "SHORT"
                     self.entryPrice = price
                     self.initialTarget = top
-                    ENTRY("SHORT")
+                    # ENTRY("SHORT")
+                    asyncio.run(ENTRY("SHORT"))
 
                     if inSL_long:
                         state['SL'] = [elem for elem in SL if symbol not in elem]
@@ -337,7 +349,7 @@ class TradingBot:
                     self.side = "LONG"
                     self.entryPrice = price
                     self.initialTarget = bot
-                    ENTRY("LONG")
+                    asyncio.run(ENTRY("LONG"))
 
                     if inSL_short:
                         state['SL'] = [elem for elem in SL if symbol not in elem]
@@ -351,6 +363,7 @@ class TradingBot:
 
     # R U N
     def run(self):
+
         # Create exchange instances
         self.users = create_exchange_instances(accounts).items()
 
@@ -377,7 +390,6 @@ class TradingBot:
                 time.sleep(60)  # 5min ,Run every 15 minutes
             
             
-
 
 
 def main():

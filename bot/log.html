@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bot Log Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-black text-white text-sm">
+   <div class="flex items-center gap-x-2">
+    <h2 class="text-2xl">Log Viewer</h2>
+
+    <button class="border border-green-400 p-2" onclick="loadLog()">
+        Cards
+      </button>
+
+    <button class="border border-green-400 p-2" onclick="loadLog(`scalp_log`)">
+      Scalp Log
+    </button>
+    <button
+      class="border border-green-400 p-2"
+      onclick="loadLog(`scalp_terminal`)"
+    >
+      Scalp Terminal
+    </button>
+
+    <button class="border border-green-400 p-2" onclick="loadLog(`swing_log`)">
+      Swing Log
+    </button>
+    <button
+      class="border border-green-400 p-2"
+      onclick="loadLog(`swing_terminal`)"
+    >
+      Swing Terminal
+    </button>
+   
+
+    <div class="h-2 flex flex-1 bg-gray-600 ml-8 rounded-full overflow-hidden">
+        <div id="wins_bar" class="h-2 bg-green-600 "></div>
+        <div id="los_bar" class="h-2 bg-red-600 "></div>
+    </div>
+
+    <p id="wins" class="text-green-400">_</p>
+    <p id="los" class="text-red-400 mr-8">_</p>
+
+</div>
+
+    <div id="logDisplay">
+      <!-- <div
+        class="items-center bg-gradient-to-t from-[#00c45240] to-transparant p-3 rounded-lg border border-green-900"
+      >
+        <h1 class="text-2xl">
+          <span class="bg-green-600 text-xl p-1 mr-2">LONG</span>BTC/USDT
+        </h1>
+        <p class="text-3xl text-green-400 my-2">
+          1.45% <span class="text-gray-600 text-sm">SL</span>
+        </p>
+        <div class="flex justify-between">
+          <div>
+              <p class="text-white">10:14:46</p>
+            <p class="text-gray-400 text-xs">2024-11-14</p>
+            <p class="text-white">14654.12</p>
+          </div>
+          <div class="flex items-center">
+            <p class="text-gray-400">-</p>
+          </div>
+          <div>
+              <p class="text-white">10:14:46</p>
+            <p class="text-gray-400 text-xs">2024-11-14</p>
+            <p class="text-white">14654.12</p>
+          </div>
+        </div>
+        <pre class="text-gray-500">SL : 4654.45</pre>
+      </div>
+    </div> -->
+    <script>
+      // Function to read the log.txt file and display its contents
+      var positions = [];
+      loadLog();
+      async function loadLog(logType) {
+        $(`#logDisplay`).empty()
+        const response = await fetch(`/log.txt`);
+        const text = await response.text();
+        const linesArray = text.split("\n");
+        // console.log(linesArray);
+
+        if(logType){
+            $(`#logDisplay`).removeClass();
+            linesArray.reverse().map((_, i) => {
+          var cls = [``];
+          if (_.includes(`=====`)) {
+            if (_.includes(`LONG`)) {
+              $(`#logDisplay`)
+                .append(`<div class="flex items-center mb-6 border-t border-b border-gray-800 bg-[#9333ea30]">
+                  <div class="bg-green-600  px-1 mr-2 text-[10px]">LONG</div>
+                  <pre class="text-purple-600" >${_}</pre>
+                </div>`);
+            }
+            if (_.includes(`SHORT`)) {
+              $(`#logDisplay`)
+                .append(`<div class="flex items-center mb-6 border-t border-b border-gray-800 bg-[#9333ea30]">
+                  <div class="bg-red-600 px-1 mr-2 text-[10px]">SHORT</div>
+                  <pre class="text-purple-600" >${_}</pre>
+                </div>`);
+            }
+            return;
+          }
+          if (_.includes(`orderId`)) cls.push(`text-gray-400 text-xs`);
+          if (_.includes(`EXIT`)) {
+            if (_.includes(`EXIT SL`)) cls.push(`text-pink-600 bg-[#db277730]`);
+            if (_.includes(`MIN TARGET`))
+              cls.push(`text-emerald-400 bg-[#34d39930]`);
+            if (_.includes(`EXIT WIN`))
+              cls.push(`text-green-400 bg-[#34d39930]`);
+          }
+          $(`#logDisplay`).append(`<pre class="${cls.join(` `)}">${_}</pre>`);
+        });
+// CARDS
+
+        } else{
+            $(`#logDisplay`).addClass(`flex flex-wrap gap-2`);
+            let temp_pos = {};
+            linesArray.forEach((_, i) => {
+            if (_.includes(`=====`)) {
+            let l = _.split(" ");
+            temp_pos.start_date = l[0];
+            temp_pos.start_time = l[1];
+            temp_pos.symbol = l[7];
+            temp_pos.type = l[8];
+            temp_pos.entry_price = l[11];
+            temp_pos.sl = l[13];
+          }
+
+          if (_.includes(`EXIT`)) {
+            let l = _.split(" ");
+            temp_pos.end_date = l[0];
+            temp_pos.end_time = l[1];
+            temp_pos.status = l[7];
+            temp_pos.change = l.at(-1);
+
+            if (_.includes(`EXIT WIN`) || _.includes(`EXIT SL`)) {
+              temp_pos.exit_price = l[8];
+            }
+            if (_.includes(`MIN TARGET`)) {
+              temp_pos.exit_price = l[10];
+            }
+
+            temp_pos = {};
+            positions.push(temp_pos);
+          }
+        });
+        
+        const data = positions.reverse()
+
+        let loses = data.filter(_=> _.status == `SL`)
+        let los = loses.length
+        let wins = (data.length - los)
+        $(`#los`).text(los)
+        $(`#wins`).text(wins)
+
+        $(`#los_bar`).css(`width`, (los/data.length)*100+`%`);
+        $(`#wins_bar`).css(`width`, (wins/data.length)*100+`%`);
+
+        
+        data.map((pos, i) => {
+          if(!pos?.symbol)return
+            let isLoss = pos.status == `SL` 
+          $(`#logDisplay`)
+            .append(`<div class="items-center bg-gradient-to-t ${isLoss ? `from-[#c4004b20] border-red-900`:   pos.change ? `from-[#00c45240] border-green-900` : `border-none`} to-transparant p-3 rounded-lg border ">
+        <h1 class="text-2xl">
+          <span class="${pos.type == `LONG` ? `bg-green-600` : `bg-red-600`} text-xs p-1 mr-2">${pos.type}</span>${pos.symbol}
+        </h1>
+        <p class="text-3xl ${isLoss ? `text-red-400` : `text-green-400`} my-2">
+          ${pos.change ?? `_`} <span class="text-gray-600 text-sm">${pos.status}</span>
+        </p>
+        <div class="flex justify-between">
+          <div>
+              <p class="text-white">${pos.start_time.split(`,`)[0]}</p>
+            <p class="text-gray-400 text-xs">${pos.start_date}</p>
+            <p class="text-white">${pos.entry_price.replace(`,`, ``)}</p>
+          </div>
+          <div class="flex items-center">
+            <p class="text-gray-400">-</p>
+          </div>
+          <div>
+              <p class="text-white">${pos.end_time?.split(`,`)[0]}</p>
+            <p class="text-gray-400 text-xs">${pos.end_date}</p>
+            <p class="text-white">1${pos.exit_price}</p>
+          </div>
+        </div>
+        <pre class="text-gray-500">SL : ${Number(pos.sl).toFixed(4)}</pre>
+      </div>
+    </div>`);
+        });
+    }
+      
+        // document.getElementById(`logDisplay`).textContent = text;
+      }
+    </script>
+  </body>
+</html>

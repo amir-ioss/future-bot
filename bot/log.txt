@@ -1,76 +1,281 @@
-2024-10-16 13:40:19,462 - INFO - 
-13:35 ============ TRX/USDT LONG =============== 0.15906
-2024-10-16 13:40:22,237 - INFO - Balance : 13.29454087
-2024-10-16 13:40:22,576 - INFO - Order placed for account amir:
-{'info': {'orderId': '12587686822', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu405632d01f401d43695a8e', 'price': '0.00000', 'avgPrice': '0.15913', 'origQty': '1256', 'executedQty': '1256', 'cumQty': '1256', 'cumQuote': '199.86728', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729086022508'}, 'id': '12587686822', 'clientOrderId': 'x-xcKtGhcu405632d01f401d43695a8e', 'timestamp': 1729086022508, 'datetime': '2024-10-16T13:40:22.508Z', 'lastTradeTimestamp': 1729086022508, 'lastUpdateTimestamp': 1729086022508, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.15913, 'triggerPrice': None, 'amount': 1256.0, 'cost': 199.86728, 'average': 0.15913, 'filled': 1256.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 13:40:26,414 - INFO - Balance : 25.23586911
-2024-10-16 13:40:26,751 - INFO - Order placed for account shuhaib:
-{'info': {'orderId': '12587687323', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu6c5f442872d88c5197852b', 'price': '0.00000', 'avgPrice': '0.15916', 'origQty': '1256', 'executedQty': '1256', 'cumQty': '1256', 'cumQuote': '199.90496', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729086026684'}, 'id': '12587687323', 'clientOrderId': 'x-xcKtGhcu6c5f442872d88c5197852b', 'timestamp': 1729086026684, 'datetime': '2024-10-16T13:40:26.684Z', 'lastTradeTimestamp': 1729086026684, 'lastUpdateTimestamp': 1729086026684, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.15916, 'triggerPrice': None, 'amount': 1256.0, 'cost': 199.90496, 'average': 0.15916, 'filled': 1256.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 14:20:43,420 - INFO - 
-14:15 ============ TRX/USDT SHORT =============== 0.1597
-2024-10-16 14:20:43,974 - INFO - Balance : 13.91403147
-2024-10-16 14:20:44,313 - INFO - Order placed for account amir:
-{'info': {'orderId': '12587884342', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu862c3778227a97f22d464e', 'price': '0.00000', 'avgPrice': '0.15965', 'origQty': '1252', 'executedQty': '1252', 'cumQty': '1252', 'cumQuote': '199.88180', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729088444244'}, 'id': '12587884342', 'clientOrderId': 'x-xcKtGhcu862c3778227a97f22d464e', 'timestamp': 1729088444244, 'datetime': '2024-10-16T14:20:44.244Z', 'lastTradeTimestamp': 1729088444244, 'lastUpdateTimestamp': 1729088444244, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.15965, 'triggerPrice': None, 'amount': 1252.0, 'cost': 199.8818, 'average': 0.15965, 'filled': 1252.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 14:20:45,873 - INFO - Balance : 25.76313791
-2024-10-16 14:20:46,219 - INFO - Order placed for account shuhaib:
-{'info': {'orderId': '12587884415', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu9631d888e469ba7456cf42', 'price': '0.00000', 'avgPrice': '0.15965', 'origQty': '1252', 'executedQty': '1252', 'cumQty': '1252', 'cumQuote': '199.88180', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729088446144'}, 'id': '12587884415', 'clientOrderId': 'x-xcKtGhcu9631d888e469ba7456cf42', 'timestamp': 1729088446144, 'datetime': '2024-10-16T14:20:46.144Z', 'lastTradeTimestamp': 1729088446144, 'lastUpdateTimestamp': 1729088446144, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.15965, 'triggerPrice': None, 'amount': 1252.0, 'cost': 199.8818, 'average': 0.15965, 'filled': 1252.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 16:35:40,612 - INFO - 16:35 MIN TARGET EXIT SHORT 0.1594
-2024-10-16 16:35:41,172 - INFO - SHORT closed successfully for account amir:
-{'info': {'orderId': '12588451229', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcub985c01708ab4d391783be', 'price': '0.00000', 'avgPrice': '0.15941', 'origQty': '1252', 'executedQty': '1252', 'cumQty': '1252', 'cumQuote': '199.58132', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729096541106'}, 'id': '12588451229', 'clientOrderId': 'x-xcKtGhcub985c01708ab4d391783be', 'timestamp': 1729096541106, 'datetime': '2024-10-16T16:35:41.106Z', 'lastTradeTimestamp': 1729096541106, 'lastUpdateTimestamp': 1729096541106, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.15941, 'triggerPrice': None, 'amount': 1252.0, 'cost': 199.58132, 'average': 0.15941, 'filled': 1252.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 16:35:42,736 - INFO - SHORT closed successfully for account shuhaib:
-{'info': {'orderId': '12588451290', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcuf65ec7f5efbfe3e6c11d94', 'price': '0.00000', 'avgPrice': '0.15941', 'origQty': '1252', 'executedQty': '1252', 'cumQty': '1252', 'cumQuote': '199.58132', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729096542670'}, 'id': '12588451290', 'clientOrderId': 'x-xcKtGhcuf65ec7f5efbfe3e6c11d94', 'timestamp': 1729096542670, 'datetime': '2024-10-16T16:35:42.670Z', 'lastTradeTimestamp': 1729096542670, 'lastUpdateTimestamp': 1729096542670, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.15941, 'triggerPrice': None, 'amount': 1252.0, 'cost': 199.58132, 'average': 0.15941, 'filled': 1252.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 17:32:08,495 - INFO - 
-17:25 ============ TRX/USDT SHORT =============== 0.16019
-2024-10-16 17:32:09,061 - INFO - Balance : 14.48694615
-2024-10-16 17:32:09,399 - INFO - Order placed for account amir:
-{'info': {'orderId': '12588675925', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcuac729b1fde802a0558550c', 'price': '0.00000', 'avgPrice': '0.16002', 'origQty': '1249', 'executedQty': '1249', 'cumQty': '1249', 'cumQuote': '199.86498', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729099929332'}, 'id': '12588675925', 'clientOrderId': 'x-xcKtGhcuac729b1fde802a0558550c', 'timestamp': 1729099929332, 'datetime': '2024-10-16T17:32:09.332Z', 'lastTradeTimestamp': 1729099929332, 'lastUpdateTimestamp': 1729099929332, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.16002, 'triggerPrice': None, 'amount': 1249.0, 'cost': 199.86498, 'average': 0.16002, 'filled': 1249.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 17:32:10,959 - INFO - Balance : 26.33371215
-2024-10-16 17:32:11,295 - INFO - Order placed for account shuhaib:
-{'info': {'orderId': '12588676092', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu55852ffee93b06cf07c361', 'price': '0.00000', 'avgPrice': '0.16002', 'origQty': '1249', 'executedQty': '1249', 'cumQty': '1249', 'cumQuote': '199.86498', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729099931229'}, 'id': '12588676092', 'clientOrderId': 'x-xcKtGhcu55852ffee93b06cf07c361', 'timestamp': 1729099931229, 'datetime': '2024-10-16T17:32:11.229Z', 'lastTradeTimestamp': 1729099931229, 'lastUpdateTimestamp': 1729099931229, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.16002, 'triggerPrice': None, 'amount': 1249.0, 'cost': 199.86498, 'average': 0.16002, 'filled': 1249.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 19:53:02,958 - INFO - 19:50 MIN TARGET EXIT SHORT 0.1597
-2024-10-16 19:53:03,518 - INFO - SHORT closed successfully for account amir:
-{'info': {'orderId': '12589183225', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu8ac30fb01d787f8ff67558', 'price': '0.00000', 'avgPrice': '0.15971', 'origQty': '1249', 'executedQty': '1249', 'cumQty': '1249', 'cumQuote': '199.47779', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729108383452'}, 'id': '12589183225', 'clientOrderId': 'x-xcKtGhcu8ac30fb01d787f8ff67558', 'timestamp': 1729108383452, 'datetime': '2024-10-16T19:53:03.452Z', 'lastTradeTimestamp': 1729108383452, 'lastUpdateTimestamp': 1729108383452, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.15971, 'triggerPrice': None, 'amount': 1249.0, 'cost': 199.47779, 'average': 0.15971, 'filled': 1249.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-16 19:53:05,091 - INFO - SHORT closed successfully for account shuhaib:
-{'info': {'orderId': '12589183281', 'symbol': 'TRXUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu29812251febdddd035569b', 'price': '0.00000', 'avgPrice': '0.15971', 'origQty': '1249', 'executedQty': '1249', 'cumQty': '1249', 'cumQuote': '199.47779', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729108385017'}, 'id': '12589183281', 'clientOrderId': 'x-xcKtGhcu29812251febdddd035569b', 'timestamp': 1729108385017, 'datetime': '2024-10-16T19:53:05.017Z', 'lastTradeTimestamp': 1729108385017, 'lastUpdateTimestamp': 1729108385017, 'symbol': 'TRX/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.15971, 'triggerPrice': None, 'amount': 1249.0, 'cost': 199.47779, 'average': 0.15971, 'filled': 1249.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 01:05:06,522 - INFO - 
-01:00 ============ FTM/USDT SHORT =============== 0.7596
-2024-10-17 01:05:07,080 - INFO - Balance : 14.56539406
-2024-10-17 01:05:07,414 - INFO - Error placing order for account amir: binance {"code":-2019,"msg":"Margin is insufficient."}
-2024-10-17 01:05:07,970 - INFO - Balance : 26.47064216
-2024-10-17 01:05:08,329 - INFO - Order placed for account shuhaib:
-{'info': {'orderId': '23544715374', 'symbol': 'FTMUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcuf9743a82b4f2ff4f340439', 'price': '0.000000', 'avgPrice': '0.759000', 'origQty': '263', 'executedQty': '263', 'cumQty': '263', 'cumQuote': '199.617000', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.000000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729127108260'}, 'id': '23544715374', 'clientOrderId': 'x-xcKtGhcuf9743a82b4f2ff4f340439', 'timestamp': 1729127108260, 'datetime': '2024-10-17T01:05:08.260Z', 'lastTradeTimestamp': 1729127108260, 'lastUpdateTimestamp': 1729127108260, 'symbol': 'FTM/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.759, 'triggerPrice': None, 'amount': 263.0, 'cost': 199.617, 'average': 0.759, 'filled': 263.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 02:03:31,160 - INFO - 02:00 EXIT SL 0.7657
-2024-10-17 02:03:31,724 - INFO - Error closing order for account amir: binance {"code":-2019,"msg":"Margin is insufficient."}
-2024-10-17 02:03:32,291 - INFO - SHORT closed successfully for account shuhaib:
-{'info': {'orderId': '23545506210', 'symbol': 'FTMUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu16a98d723fc053f39d9cd5', 'price': '0.000000', 'avgPrice': '0.765000', 'origQty': '263', 'executedQty': '263', 'cumQty': '263', 'cumQuote': '201.195000', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.000000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729130612224'}, 'id': '23545506210', 'clientOrderId': 'x-xcKtGhcu16a98d723fc053f39d9cd5', 'timestamp': 1729130612224, 'datetime': '2024-10-17T02:03:32.224Z', 'lastTradeTimestamp': 1729130612224, 'lastUpdateTimestamp': 1729130612224, 'symbol': 'FTM/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.765, 'triggerPrice': None, 'amount': 263.0, 'cost': 201.195, 'average': 0.765, 'filled': 263.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 02:04:33,598 - INFO - 
-01:55 ============ ETH/USDT SHORT =============== 2642.0
-2024-10-17 02:04:34,166 - INFO - Balance : 14.44835027
-2024-10-17 02:04:34,507 - INFO - Error placing order for account amir: binance {"code":-2019,"msg":"Margin is insufficient."}
-2024-10-17 02:04:35,073 - INFO - Balance : 24.57349374
-2024-10-17 02:04:35,412 - INFO - Order placed for account shuhaib:
-{'info': {'orderId': '8389765748068434606', 'symbol': 'ETHUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu7059bfc6e45f2e5fe01753', 'price': '0.00', 'avgPrice': '2635.87000', 'origQty': '0.075', 'executedQty': '0.075', 'cumQty': '0.075', 'cumQuote': '197.69025', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729130675345'}, 'id': '8389765748068434606', 'clientOrderId': 'x-xcKtGhcu7059bfc6e45f2e5fe01753', 'timestamp': 1729130675345, 'datetime': '2024-10-17T02:04:35.345Z', 'lastTradeTimestamp': 1729130675345, 'lastUpdateTimestamp': 1729130675345, 'symbol': 'ETH/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 2635.87, 'triggerPrice': None, 'amount': 0.075, 'cost': 197.69025, 'average': 2635.87, 'filled': 0.075, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 02:45:53,617 - INFO - 02:45 MIN TARGET EXIT SHORT 2624.2
-2024-10-17 02:45:53,803 - INFO - Error closing order for account amir: binance {"code":-2019,"msg":"Margin is insufficient."}
-2024-10-17 02:45:53,986 - INFO - SHORT closed successfully for account shuhaib:
-{'info': {'orderId': '8389765748085104465', 'symbol': 'ETHUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu8c07347986b6d11aa9d4a5', 'price': '0.00', 'avgPrice': '2624.42000', 'origQty': '0.075', 'executedQty': '0.075', 'cumQty': '0.075', 'cumQuote': '196.83150', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729133153918'}, 'id': '8389765748085104465', 'clientOrderId': 'x-xcKtGhcu8c07347986b6d11aa9d4a5', 'timestamp': 1729133153918, 'datetime': '2024-10-17T02:45:53.918Z', 'lastTradeTimestamp': 1729133153918, 'lastUpdateTimestamp': 1729133153918, 'symbol': 'ETH/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 2624.42, 'triggerPrice': None, 'amount': 0.075, 'cost': 196.8315, 'average': 2624.42, 'filled': 0.075, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 05:18:09,016 - INFO - 
-05:10 ============ XRP/USDT SHORT =============== 0.5628
-2024-10-17 05:18:09,576 - INFO - Balance : 14.45312145
-2024-10-17 05:18:09,924 - INFO - Order placed for account amir:
-{'info': {'orderId': '68055688201', 'symbol': 'XRPUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu54cfcfdabd0e250b54b46', 'price': '0.0000', 'avgPrice': '0.55900', 'origQty': '357.6', 'executedQty': '357.6', 'cumQty': '357.6', 'cumQuote': '199.89840', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.0000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729142289848'}, 'id': '68055688201', 'clientOrderId': 'x-xcKtGhcu54cfcfdabd0e250b54b46', 'timestamp': 1729142289848, 'datetime': '2024-10-17T05:18:09.848Z', 'lastTradeTimestamp': 1729142289848, 'lastUpdateTimestamp': 1729142289848, 'symbol': 'XRP/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.559, 'triggerPrice': None, 'amount': 357.6, 'cost': 199.8984, 'average': 0.559, 'filled': 357.6, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 05:18:11,481 - INFO - Balance : 24.97064406
-2024-10-17 05:18:11,819 - INFO - Order placed for account shuhaib:
-{'info': {'orderId': '68055691427', 'symbol': 'XRPUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu3f171907e4ecc939376772', 'price': '0.0000', 'avgPrice': '0.55890', 'origQty': '357.6', 'executedQty': '357.6', 'cumQty': '357.6', 'cumQuote': '199.86264', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.0000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729142291751'}, 'id': '68055691427', 'clientOrderId': 'x-xcKtGhcu3f171907e4ecc939376772', 'timestamp': 1729142291751, 'datetime': '2024-10-17T05:18:11.751Z', 'lastTradeTimestamp': 1729142291751, 'lastUpdateTimestamp': 1729142291751, 'symbol': 'XRP/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'sell', 'price': 0.5589, 'triggerPrice': None, 'amount': 357.6, 'cost': 199.86264, 'average': 0.5589, 'filled': 357.6, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 05:57:33,481 - INFO - 05:55 MIN TARGET EXIT SHORT 0.5569
-2024-10-17 05:57:34,052 - INFO - SHORT closed successfully for account amir:
-{'info': {'orderId': '68058496649', 'symbol': 'XRPUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcuc89377de00360f64045fad', 'price': '0.0000', 'avgPrice': '0.55720', 'origQty': '357.6', 'executedQty': '357.6', 'cumQty': '357.6', 'cumQuote': '199.25472', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.0000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729144653981'}, 'id': '68058496649', 'clientOrderId': 'x-xcKtGhcuc89377de00360f64045fad', 'timestamp': 1729144653981, 'datetime': '2024-10-17T05:57:33.981Z', 'lastTradeTimestamp': 1729144653981, 'lastUpdateTimestamp': 1729144653981, 'symbol': 'XRP/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.5572, 'triggerPrice': None, 'amount': 357.6, 'cost': 199.25472, 'average': 0.5572, 'filled': 357.6, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 05:57:35,240 - INFO - SHORT closed successfully for account shuhaib:
-{'info': {'orderId': '68058497408', 'symbol': 'XRPUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu3d2b0479a06284b2dc6ccf', 'price': '0.0000', 'avgPrice': '0.55720', 'origQty': '357.6', 'executedQty': '357.6', 'cumQty': '357.6', 'cumQuote': '199.25472', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.0000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729144655172'}, 'id': '68058497408', 'clientOrderId': 'x-xcKtGhcu3d2b0479a06284b2dc6ccf', 'timestamp': 1729144655172, 'datetime': '2024-10-17T05:57:35.172Z', 'lastTradeTimestamp': 1729144655172, 'lastUpdateTimestamp': 1729144655172, 'symbol': 'XRP/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.5572, 'triggerPrice': None, 'amount': 357.6, 'cost': 199.25472, 'average': 0.5572, 'filled': 357.6, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 06:00:29,323 - INFO - 
-05:55 ============ FTM/USDT LONG =============== 0.743
-2024-10-17 06:00:29,884 - INFO - Balance : 14.865622
-2024-10-17 06:00:30,222 - INFO - Order placed for account amir:
-{'info': {'orderId': '23548133787', 'symbol': 'FTMUSDT', 'status': 'FILLED', 'clientOrderId': 'x-xcKtGhcu7262c60d6d3e2566eaac27', 'price': '0.000000', 'avgPrice': '0.744800', 'origQty': '268', 'executedQty': '268', 'cumQty': '268', 'cumQuote': '199.606400', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.000000', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'NONE', 'goodTillDate': '0', 'updateTime': '1729144830153'}, 'id': '23548133787', 'clientOrderId': 'x-xcKtGhcu7262c60d6d3e2566eaac27', 'timestamp': 1729144830153, 'datetime': '2024-10-17T06:00:30.153Z', 'lastTradeTimestamp': 1729144830153, 'lastUpdateTimestamp': 1729144830153, 'symbol': 'FTM/USDT:USDT', 'type': 'market', 'timeInForce': 'GTC', 'postOnly': False, 'reduceOnly': False, 'side': 'buy', 'price': 0.7448, 'triggerPrice': None, 'amount': 268.0, 'cost': 199.6064, 'average': 0.7448, 'filled': 268.0, 'remaining': 0.0, 'status': 'closed', 'fee': None, 'trades': [], 'fees': [], 'stopPrice': None, 'takeProfitPrice': None, 'stopLossPrice': None}
-2024-10-17 06:00:31,361 - INFO - Balance : 25.0299857
-2024-10-17 06:00:31,705 - INFO - Error placing order for account shuhaib: binance {"code":-2019,"msg":"Margin is insufficient."}
+2024-11-08 23:34:57,917 - INFO - 23:25 ============ FTM/USDT SHORT =============== on: 0.7171, SL: 0.7235186083669495
+2024-11-09 00:43:22,049 - INFO - 00:40 EXIT SL 0.7236 0.90%
+2024-11-09 01:56:09,456 - INFO - 01:50 ============ LTC/USDT LONG =============== on: 72.12, SL: 71.76556900813296
+2024-11-09 02:45:27,489 - INFO - 02:45 EXIT SL 71.71 0.57%
+2024-11-09 03:21:07,228 - INFO - 03:15 ============ DOT/USDT SHORT =============== on: 4.335, SL: 4.360943776360011
+2024-11-09 04:53:40,025 - INFO - 04:50 MIN TARGET EXIT SHORT 4.336 0.02%
+2024-11-09 06:03:36,791 - INFO - 05:55 ============ BNB/USDT SHORT =============== on: 601.34, SL: 603.4682702609913
+2024-11-09 06:10:41,008 - INFO - 06:10 EXIT SL 604.16 0.47%
+2024-11-09 09:54:22,276 - INFO - 09:45 ============ BNB/USDT LONG =============== on: 629.62, SL: 626.9676790095432
+2024-11-09 10:27:34,711 - INFO - 10:25 EXIT SL 626.91 0.43%
+2024-11-09 10:28:57,769 - INFO - 10:20 ============ AAVE/USDT SHORT =============== on: 185.61, SL: 187.0211115706993
+2024-11-09 11:11:14,142 - INFO - 11:10 EXIT SL 187.51 1.02%
+2024-11-09 11:26:10,291 - INFO - 11:20 ============ FET/USDT SHORT =============== on: 1.405, SL: 1.4161246232948346
+2024-11-09 12:14:28,428 - INFO - 12:10 MIN TARGET EXIT SHORT 1.397 0.57%
+2024-11-09 14:02:03,210 - INFO - 13:55 ============ FET/USDT SHORT =============== on: 1.429, SL: 1.4405978843105567
+2024-11-09 14:59:23,180 - INFO - 14:55 MIN TARGET EXIT SHORT 1.42 0.63%
+2024-11-09 16:00:12,242 - INFO - 15:55 ============ BNB/USDT LONG =============== on: 625.62, SL: 622.8750489625671
+2024-11-09 17:39:46,867 - INFO - 17:35 MIN TARGET EXIT LONG 624.9 0.12%
+2024-11-09 17:51:28,013 - INFO - 17:45 ============ DASH/USDT LONG =============== on: 24.1, SL: 23.99804853782219
+2024-11-09 18:20:39,346 - INFO - 18:20 EXIT SL 23.99 0.46%
+2024-11-09 19:27:35,743 - INFO - 19:20 ============ DASH/USDT SHORT =============== on: 24.24, SL: 24.344551395078295
+2024-11-09 20:16:54,283 - INFO - 20:15 MIN TARGET EXIT SHORT 24.05 0.79%
+2024-11-09 20:17:59,175 - INFO - 20:10 ============ LTC/USDT LONG =============== on: 72.44, SL: 72.09641995744623
+2024-11-09 22:11:37,728 - INFO - 22:10 MIN TARGET EXIT LONG 72.46 0.03%
+2024-11-09 22:48:35,959 - INFO - 22:40 ============ LTC/USDT LONG =============== on: 71.76, SL: 71.42926995999039
+2024-11-09 23:21:48,306 - INFO - 23:20 MIN TARGET EXIT LONG 72.38 0.86%
+2024-11-09 23:41:06,902 - INFO - 23:35 ============ AAVE/USDT SHORT =============== on: 192.74, SL: 194.16857920440458
+2024-11-10 00:30:24,879 - INFO - 00:30 MIN TARGET EXIT SHORT 191.14 0.83%
+2024-11-10 00:46:21,000 - INFO - 00:40 ============ ETH/USDT SHORT =============== on: 3074.2, SL: 3088.464101631769
+2024-11-10 00:49:23,935 - INFO - 00:45 EXIT SL 3088.69 0.47%
+2024-11-10 01:20:39,425 - INFO - 01:15 ============ AAVE/USDT SHORT =============== on: 195.25, SL: 196.70220028533342
+2024-11-10 01:35:46,828 - INFO - 01:35 MIN TARGET EXIT SHORT 193.17 1.07%
+2024-11-10 02:19:03,783 - INFO - 02:10 ============ FET/USDT SHORT =============== on: 1.43, SL: 1.4400504349014331
+2024-11-10 03:11:22,521 - INFO - 03:10 MIN TARGET EXIT SHORT 1.423 0.49%
+2024-11-10 04:00:29,234 - INFO - 03:55 ============ FTM/USDT SHORT =============== on: 0.7583, SL: 0.7643493922171305
+2024-11-10 04:29:40,405 - INFO - 04:25 EXIT SL 0.7646 0.83%
+2024-11-10 04:31:08,062 - INFO - 04:25 ============ FET/USDT SHORT =============== on: 1.46, SL: 1.470206871058327
+2024-11-10 05:27:27,761 - INFO - 05:25 EXIT SL 1.47 0.68%
+2024-11-10 05:36:08,058 - INFO - 05:30 ============ ADA/USDT SHORT =============== on: 0.4911, SL: 0.49529949718139815
+2024-11-10 05:40:11,358 - INFO - 05:40 EXIT SL 0.4961 1.01%
+2024-11-10 05:44:17,850 - INFO - 05:35 ============ SOL/USDT LONG =============== on: 198.97, SL: 197.79210600799755
+2024-11-10 05:59:24,588 - INFO - 05:55 MIN TARGET EXIT LONG 200.5 0.77%
+2024-11-10 06:41:05,590 - INFO - 06:35 ============ NEAR/USDT LONG =============== on: 4.554, SL: 4.518536697831173
+2024-11-10 08:27:42,027 - INFO - 08:25 MIN TARGET EXIT LONG 4.607 1.16%
+2024-11-10 10:27:09,448 - INFO - 10:20 ============ AAVE/USDT SHORT =============== on: 198.13, SL: 199.68883546705356
+2024-11-10 10:47:17,840 - INFO - 10:45 MIN TARGET EXIT SHORT 197.49 0.32%
+2024-11-10 11:00:33,813 - INFO - 10:55 ============ FTM/USDT SHORT =============== on: 0.7781, SL: 0.7846708646125898
+2024-11-10 11:35:48,626 - INFO - 11:30 ============ FTM/USDT LONG =============== on: 0.7606, SL: 0.7539513575373419
+2024-11-10 12:14:00,800 - INFO - 12:10 MIN TARGET EXIT LONG 0.7653 0.62%
+2024-11-10 12:21:08,658 - INFO - 12:15 ============ XRP/USDT LONG =============== on: 0.579, SL: 0.5765991000057111
+2024-11-10 12:51:20,110 - INFO - 12:50 MIN TARGET EXIT LONG 0.5828 0.65%
+2024-11-10 13:37:29,386 - INFO - 13:30 ============ FTM/USDT SHORT =============== on: 0.7738, SL: 0.780384775550665
+2024-11-10 14:20:45,218 - INFO - 14:20 MIN TARGET EXIT SHORT 0.7768 0.39%
+2024-11-10 14:50:38,288 - INFO - 14:45 ============ FET/USDT SHORT =============== on: 1.498, SL: 1.5084177239312675
+2024-11-10 15:25:51,363 - INFO - 15:20 ============ FET/USDT LONG =============== on: 1.474, SL: 1.4636111109496859
+2024-11-10 16:10:05,558 - INFO - 16:10 MIN TARGET EXIT LONG 1.487 0.88%
+2024-11-10 16:41:11,182 - INFO - 16:35 ============ ADA/USDT LONG =============== on: 0.5805, SL: 0.5756389898189752
+2024-11-10 17:28:28,334 - INFO - 17:25 MIN TARGET EXIT LONG 0.5846 0.70%
+2024-11-10 17:29:53,799 - INFO - 17:20 ============ GALA/USDT SHORT =============== on: 0.02574, SL: 0.025915955265220645
+2024-11-10 17:39:59,112 - INFO - 17:35 EXIT WIN 0.02531 1.68%
+2024-11-10 17:42:56,284 - INFO - 17:35 ============ FET/USDT LONG =============== on: 1.48, SL: 1.469637639841773
+2024-11-10 17:42:56,284 - INFO - 17:40 MIN TARGET EXIT LONG 1.483 0.20%
+2024-11-10 17:45:39,548 - INFO - 17:40 ============ ADA/USDT SHORT =============== on: 0.5921, SL: 0.5971262404976636
+2024-11-10 17:46:41,823 - INFO - 17:45 EXIT SL 0.5979 0.97%
+2024-11-10 17:47:46,716 - INFO - 17:40 ============ LTC/USDT LONG =============== on: 76.57, SL: 76.223072058332
+2024-11-10 18:05:54,278 - INFO - 18:05 MIN TARGET EXIT LONG 77.16 0.77%
+2024-11-10 18:56:23,994 - INFO - 18:50 ============ ADA/USDT LONG =============== on: 0.619, SL: 0.6128089575231246
+2024-11-10 18:56:23,999 - INFO - 18:55 MIN TARGET EXIT LONG 0.6202 0.19%
+2024-11-10 18:59:23,160 - INFO - 18:50 ============ ADA/USDT LONG =============== on: 0.619, SL: 0.6128145496854684
+2024-11-10 18:59:23,160 - INFO - 18:55 MIN TARGET EXIT LONG 0.6211 0.34%
+2024-11-10 19:06:48,840 - INFO - 19:00 ============ XRP/USDT SHORT =============== on: 0.6123, SL: 0.615060824257121
+2024-11-10 19:22:55,851 - INFO - 19:20 MIN TARGET EXIT SHORT 0.6078 0.74%
+2024-11-10 19:25:41,678 - INFO - 19:20 ============ DOT/USDT SHORT =============== on: 5.302, SL: 5.332842581965274
+2024-11-10 19:33:46,320 - INFO - 19:30 EXIT SL 5.346 0.83%
+2024-11-10 19:34:58,040 - INFO - 19:25 ============ ADA/USDT LONG =============== on: 0.6148, SL: 0.6085312045321476
+2024-11-10 19:50:04,751 - INFO - 19:50 MIN TARGET EXIT LONG 0.6238 1.45%
+2024-11-10 19:54:26,970 - INFO - 19:45 ============ AAVE/USDT SHORT =============== on: 196.59, SL: 198.27879731522992
+2024-11-10 20:26:39,612 - INFO - 20:20 ============ AAVE/USDT LONG =============== on: 191.43, SL: 189.69766916286065
+2024-11-10 21:21:57,264 - INFO - 21:20 MIN TARGET EXIT LONG 192.59 0.60%
+2024-11-10 21:54:45,852 - INFO - 21:45 ============ GALA/USDT LONG =============== on: 0.02526, SL: 0.025065136111202244
+2024-11-10 22:19:55,907 - INFO - 22:15 MIN TARGET EXIT LONG 0.02563 1.45%
+2024-11-10 22:55:29,812 - INFO - 22:50 ============ ADA/USDT SHORT =============== on: 0.6209, SL: 0.6278815570654178
+2024-11-10 23:23:40,817 - INFO - 23:20 EXIT SL 0.6284 1.20%
+2024-11-10 23:27:58,702 - INFO - 23:20 ============ FTM/USDT SHORT =============== on: 0.8203, SL: 0.8270728287482786
+2024-11-10 23:55:09,415 - INFO - 23:55 MIN TARGET EXIT SHORT 0.8115 1.08%
+2024-11-11 00:15:46,122 - INFO - 00:10 ============ ADA/USDT LONG =============== on: 0.6107, SL: 0.6034247912859267
+2024-11-11 00:56:00,899 - INFO - 00:55 MIN TARGET EXIT LONG 0.6218 1.80%
+2024-11-11 00:57:17,125 - INFO - 00:50 ============ DOT/USDT LONG =============== on: 5.344, SL: 5.306651749690697
+2024-11-11 01:00:20,063 - INFO - 01:00 MIN TARGET EXIT LONG 5.407 1.17%
+2024-11-11 01:01:27,193 - INFO - 00:55 ============ SOL/USDT LONG =============== on: 210.4, SL: 209.05441206971872
+2024-11-11 01:15:34,238 - INFO - 01:15 EXIT SL 207.65 1.32%
+2024-11-11 01:28:59,216 - INFO - 01:20 ============ ADA/USDT LONG =============== on: 0.6072, SL: 0.5996918450115711
+2024-11-11 01:43:05,830 - INFO - 01:40 EXIT SL 0.599 1.36%
+2024-11-11 01:51:52,913 - INFO - 01:45 ============ FTM/USDT LONG =============== on: 0.7723, SL: 0.7651247664491606
+2024-11-11 02:17:03,903 - INFO - 02:15 EXIT SL 0.7649 0.96%
+2024-11-11 02:26:03,805 - INFO - 02:20 ============ FET/USDT LONG =============== on: 1.45, SL: 1.4373873333045337
+2024-11-11 02:33:08,006 - INFO - 02:30 EXIT SL 1.434 1.11%
+2024-11-11 02:46:21,072 - INFO - 02:40 ============ ADA/USDT LONG =============== on: 0.5626, SL: 0.5544497288274526
+2024-11-11 02:55:27,019 - INFO - 02:55 MIN TARGET EXIT LONG 0.5783 2.75%
+2024-11-11 02:58:10,658 - INFO - 02:50 ============ DASH/USDT LONG =============== on: 25.43, SL: 25.29954349186271
+2024-11-11 03:05:14,985 - INFO - 03:05 MIN TARGET EXIT LONG 25.67 0.94%
+2024-11-11 03:07:51,963 - INFO - 03:00 ============ SOL/USDT SHORT =============== on: 206.26, SL: 207.6679378890915
+2024-11-11 03:22:59,527 - INFO - 03:20 EXIT SL 207.97 0.83%
+2024-11-11 03:25:41,267 - INFO - 03:20 ============ ADA/USDT SHORT =============== on: 0.5923, SL: 0.6005449688415748
+2024-11-11 03:52:53,256 - INFO - 03:50 EXIT SL 0.6017 1.57%
+2024-11-11 03:57:11,192 - INFO - 03:50 ============ FTM/USDT SHORT =============== on: 0.7909, SL: 0.7987422966808714
+2024-11-11 04:20:21,380 - INFO - 04:20 MIN TARGET EXIT SHORT 0.7754 1.98%
+2024-11-11 05:49:48,691 - INFO - 05:40 ============ FTM/USDT LONG =============== on: 0.774, SL: 0.766345778671812
+2024-11-11 06:01:54,632 - INFO - 06:00 MIN TARGET EXIT LONG 0.7872 1.69%
+2024-11-11 06:02:57,228 - INFO - 05:55 ============ BNB/USDT SHORT =============== on: 633.67, SL: 636.7358786760374
+2024-11-11 06:15:02,952 - INFO - 06:15 EXIT SL 637.46 0.60%
+2024-11-11 07:10:20,832 - INFO - 07:05 ============ FET/USDT SHORT =============== on: 1.494, SL: 1.5073504209794935
+2024-11-11 07:30:29,266 - INFO - 07:30 MIN TARGET EXIT SHORT 1.473 1.42%
+2024-11-11 07:46:45,619 - INFO - 07:40 ============ FTM/USDT SHORT =============== on: 0.8006, SL: 0.8082700949599496
+2024-11-11 09:02:11,717 - INFO - 09:00 MIN TARGET EXIT SHORT 0.8039 0.41%
+2024-11-11 09:03:12,046 - INFO - 08:55 ============ ETH/USDT LONG =============== on: 3171.79, SL: 3154.701290276601
+2024-11-11 09:25:21,131 - INFO - 09:25 MIN TARGET EXIT LONG 3198.41 0.84%
+2024-11-11 09:47:36,336 - INFO - 09:40 ============ NEAR/USDT SHORT =============== on: 5.182, SL: 5.228993019239917
+2024-11-11 10:01:42,697 - INFO - 10:00 MIN TARGET EXIT SHORT 5.108 1.44%
+2024-11-11 10:02:45,312 - INFO - 09:55 ============ BNB/USDT LONG =============== on: 631.23, SL: 627.9880696960647
+2024-11-11 10:53:03,363 - INFO - 10:50 EXIT SL 627.75 0.55%
+2024-11-11 11:01:50,224 - INFO - 10:55 ============ FTM/USDT LONG =============== on: 0.7696, SL: 0.7613490225528812
+2024-11-11 11:21:58,691 - INFO - 11:20 EXIT SL 0.7594 1.33%
+2024-11-11 11:27:39,111 - INFO - 11:20 ============ ADA/USDT LONG =============== on: 0.5659, SL: 0.5563125996797967
+2024-11-11 12:07:54,004 - INFO - 12:05 MIN TARGET EXIT LONG 0.5712 0.93%
+2024-11-11 12:16:37,043 - INFO - 12:10 ============ DASH/USDT LONG =============== on: 25.45, SL: 25.29936143499906
+2024-11-11 12:47:48,842 - INFO - 12:45 MIN TARGET EXIT LONG 25.54 0.35%
+2024-11-11 13:41:32,047 - INFO - 13:35 ============ NEAR/USDT SHORT =============== on: 5.261, SL: 5.314977394912797
+2024-11-11 14:37:51,648 - INFO - 14:35 MIN TARGET EXIT SHORT 5.231 0.57%
+2024-11-11 14:47:57,164 - INFO - 14:40 ============ SOL/USDT SHORT =============== on: 210.91, SL: 212.4732215094961
+2024-11-11 15:49:18,960 - INFO - 15:45 EXIT SL 213.27 1.11%
+2024-11-11 17:56:13,514 - INFO - 17:50 ============ NEAR/USDT LONG =============== on: 5.268, SL: 5.209522100565074
+2024-11-11 18:20:23,050 - INFO - 18:20 MIN TARGET EXIT LONG 5.341 1.38%
+2024-11-11 18:51:29,963 - INFO - 18:45 ============ DASH/USDT LONG =============== on: 25.57, SL: 25.41548916726261
+2024-11-11 19:44:49,026 - INFO - 19:40 MIN TARGET EXIT LONG 25.57 0.00%
+2024-11-11 19:56:30,565 - INFO - 19:50 ============ DASH/USDT LONG =============== on: 25.4, SL: 25.24287212445698
+2024-11-11 20:05:35,416 - INFO - 20:05 MIN TARGET EXIT LONG 25.66 1.02%
+2024-11-11 20:57:41,575 - INFO - 20:50 ============ FTM/USDT SHORT =============== on: 0.7921, SL: 0.8008920806870617
+2024-11-11 21:55:01,970 - INFO - 21:55 EXIT SL 0.8015 1.18%
+2024-11-11 21:56:25,047 - INFO - 21:50 ============ AAVE/USDT SHORT =============== on: 191.67, SL: 193.43904865416772
+2024-11-11 22:59:47,598 - INFO - 22:55 MIN TARGET EXIT SHORT 190.17 0.79%
+2024-11-11 23:23:39,748 - INFO - 23:15 ============ FET/USDT SHORT =============== on: 1.585, SL: 1.6025870476493265
+2024-11-11 23:35:45,713 - INFO - 23:35 MIN TARGET EXIT SHORT 1.563 1.40%
+2024-11-11 23:50:18,379 - INFO - 23:45 ============ BNB/USDT LONG =============== on: 629.31, SL: 625.6323716581071
+2024-11-12 00:11:27,108 - INFO - 00:10 MIN TARGET EXIT LONG 635.6 0.99%
+2024-11-12 01:16:47,872 - INFO - 01:10 ============ SOL/USDT LONG =============== on: 216.65, SL: 214.96634421226722
+2024-11-12 01:47:59,553 - INFO - 01:45 MIN TARGET EXIT LONG 219.31 1.22%
+2024-11-12 02:16:00,377 - INFO - 02:10 ============ SOL/USDT SHORT =============== on: 221.62, SL: 223.32441601680904
+2024-11-12 02:30:06,765 - INFO - 02:30 MIN TARGET EXIT SHORT 218.87 1.25%
+2024-11-12 02:46:25,159 - INFO - 02:40 ============ NEAR/USDT LONG =============== on: 5.293, SL: 5.2280992446595045
+2024-11-12 03:00:31,516 - INFO - 03:00 EXIT WIN 5.464 3.18%
+2024-11-12 03:04:44,808 - INFO - 02:55 ============ DASH/USDT SHORT =============== on: 26.68, SL: 26.849410541142873
+2024-11-12 03:17:50,950 - INFO - 03:15 MIN TARGET EXIT SHORT 26.37 1.17%
+2024-11-12 03:46:02,811 - INFO - 03:40 ============ FTM/USDT LONG =============== on: 0.8061, SL: 0.797211399562612
+2024-11-12 03:48:05,469 - INFO - 03:45 EXIT SL 0.7955 1.32%
+2024-11-12 04:07:19,762 - INFO - 04:00 ============ FTM/USDT LONG =============== on: 0.7968, SL: 0.7878040282916908
+2024-11-12 04:25:27,633 - INFO - 04:25 MIN TARGET EXIT LONG 0.8117 1.85%
+2024-11-12 04:35:33,774 - INFO - 04:30 ============ SOL/USDT SHORT =============== on: 221.53, SL: 223.20079515492057
+2024-11-12 04:53:41,411 - INFO - 04:50 EXIT SL 223.73 0.99%
+2024-11-12 04:56:34,053 - INFO - 04:50 ============ AAVE/USDT SHORT =============== on: 193.54, SL: 195.35428383173306
+2024-11-12 05:40:50,070 - INFO - 05:40 EXIT WIN 189.77 1.97%
+2024-11-12 05:51:13,281 - INFO - 05:45 ============ GALA/USDT LONG =============== on: 0.02662, SL: 0.026290962596078007
+2024-11-12 05:51:13,282 - INFO - 05:50 MIN TARGET EXIT LONG 0.02687 0.93%
+2024-11-12 05:52:36,053 - INFO - 05:45 ============ FTM/USDT LONG =============== on: 0.8013, SL: 0.7920100337034194
+2024-11-12 06:01:40,932 - INFO - 06:00 MIN TARGET EXIT LONG 0.8232 2.70%
+2024-11-12 06:11:54,773 - INFO - 06:05 ============ DOT/USDT LONG =============== on: 5.474, SL: 5.41647981652427
+2024-11-12 06:25:00,824 - INFO - 06:25 MIN TARGET EXIT LONG 5.572 1.77%
+2024-11-12 07:57:11,133 - INFO - 07:50 ============ BNB/USDT LONG =============== on: 650.1, SL: 645.6576037898794
+2024-11-12 08:23:21,454 - INFO - 08:20 EXIT SL 645.36 0.73%
+2024-11-12 08:24:44,511 - INFO - 08:15 ============ AAVE/USDT SHORT =============== on: 194.35, SL: 196.35960859637856
+2024-11-12 09:57:15,869 - INFO - 09:55 MIN TARGET EXIT SHORT 191.14 1.67%
+2024-11-12 11:31:26,392 - INFO - 11:25 ============ GALA/USDT SHORT =============== on: 0.0284, SL: 0.028733317778838325
+2024-11-12 12:40:50,175 - INFO - 12:40 MIN TARGET EXIT SHORT 0.02871 1.09%
+2024-11-12 12:46:28,463 - INFO - 12:40 ============ XRP/USDT SHORT =============== on: 0.615, SL: 0.6200600537082043
+2024-11-12 13:48:50,047 - INFO - 13:45 EXIT SL 0.6202 0.84%
+2024-11-12 14:37:49,724 - INFO - 14:30 ============ ADA/USDT SHORT =============== on: 0.6495, SL: 0.6587816103246776
+2024-11-12 14:40:52,642 - INFO - 14:40 MIN TARGET EXIT SHORT 0.6331 2.56%
+2024-11-12 14:47:58,237 - INFO - 14:40 ============ SOL/USDT LONG =============== on: 219.22, SL: 217.39302546862206
+2024-11-12 15:18:09,672 - INFO - 15:15 EXIT SL 216.98 1.03%
+2024-11-12 15:21:07,042 - INFO - 15:15 ============ FET/USDT LONG =============== on: 1.517, SL: 1.4981609618674254
+2024-11-12 15:36:13,912 - INFO - 15:35 EXIT SL 1.487 2.00%
+2024-11-12 15:41:54,449 - INFO - 15:35 ============ ADA/USDT LONG =============== on: 0.6033, SL: 0.5936474823277728
+2024-11-12 15:56:00,908 - INFO - 15:55 EXIT SL 0.5922 1.86%
+2024-11-12 16:00:18,692 - INFO - 15:55 ============ FTM/USDT LONG =============== on: 0.77, SL: 0.7598203719009449
+2024-11-12 16:07:22,827 - INFO - 16:05 EXIT SL 0.7554 1.91%
+2024-11-12 16:26:30,242 - INFO - 16:20 ============ ADA/USDT LONG =============== on: 0.5812, SL: 0.5716015662911376
+2024-11-12 16:55:41,474 - INFO - 16:55 MIN TARGET EXIT LONG 0.5925 1.93%
+2024-11-12 18:25:01,323 - INFO - 18:15 ============ ADA/USDT LONG =============== on: 0.5676, SL: 0.557803194486674
+2024-11-12 18:55:12,872 - INFO - 18:55 MIN TARGET EXIT LONG 0.5788 1.95%
+2024-11-12 19:21:59,364 - INFO - 19:15 ============ AAVE/USDT LONG =============== on: 172.6, SL: 170.46335097794923
+2024-11-12 19:30:03,934 - INFO - 19:30 MIN TARGET EXIT LONG 176.65 2.32%
+2024-11-12 20:16:08,971 - INFO - 20:10 ============ DOT/USDT SHORT =============== on: 5.376, SL: 5.436092928665028
+2024-11-12 20:51:21,928 - INFO - 20:50 MIN TARGET EXIT SHORT 5.275 1.90%
+2024-11-12 21:23:53,410 - INFO - 21:15 ============ XRP/USDT SHORT =============== on: 0.6926, SL: 0.7000553789789206
+2024-11-12 21:30:57,609 - INFO - 21:30 MIN TARGET EXIT SHORT 0.6821 1.53%
+2024-11-12 21:45:35,721 - INFO - 21:40 ============ ADA/USDT LONG =============== on: 0.559, SL: 0.5499791302966145
+2024-11-12 22:15:47,173 - INFO - 22:15 MIN TARGET EXIT LONG 0.5701 1.97%
+2024-11-12 22:51:18,247 - INFO - 22:45 ============ XRP/USDT SHORT =============== on: 0.6906, SL: 0.6985004704635922
+2024-11-12 23:25:31,026 - INFO - 23:25 MIN TARGET EXIT SHORT 0.6804 1.49%
+2024-11-13 00:01:14,933 - INFO - 23:55 ============ AAVE/USDT SHORT =============== on: 181.98, SL: 184.14961212810857
+2024-11-13 01:48:51,736 - INFO - 01:45 MIN TARGET EXIT SHORT 180.28 0.94%
+2024-11-13 02:09:26,047 - INFO - 02:00 ============ XRP/USDT SHORT =============== on: 0.7322, SL: 0.7411753439705645
+2024-11-13 02:31:34,917 - INFO - 02:30 MIN TARGET EXIT SHORT 0.7115 2.87%
+2024-11-13 02:50:44,495 - INFO - 02:45 ============ DASH/USDT LONG =============== on: 25.73, SL: 25.488445125442784
+2024-11-13 03:12:53,662 - INFO - 03:10 MIN TARGET EXIT LONG 26.1 1.43%
+2024-11-13 04:30:27,536 - INFO - 04:25 ============ FTM/USDT SHORT =============== on: 0.7831, SL: 0.7924262264583436
+2024-11-13 04:55:37,535 - INFO - 04:55 MIN TARGET EXIT SHORT 0.7689 1.83%
+2024-11-13 05:52:02,641 - INFO - 05:45 ============ XRP/USDT SHORT =============== on: 0.7333, SL: 0.743050267722109
+2024-11-13 06:05:08,642 - INFO - 06:05 MIN TARGET EXIT SHORT 0.7142 2.64%
+2024-11-13 06:22:55,767 - INFO - 06:15 ============ NEAR/USDT SHORT =============== on: 5.512, SL: 5.593171622368308
+2024-11-13 06:33:02,733 - INFO - 06:30 MIN TARGET EXIT SHORT 5.38 2.42%
+2024-11-13 06:55:15,108 - INFO - 06:50 ============ DOT/USDT LONG =============== on: 5.228, SL: 5.167751989180848
+2024-11-13 07:53:35,544 - INFO - 07:50 EXIT SL 5.16 1.31%
+2024-11-13 07:57:53,210 - INFO - 07:50 ============ FTM/USDT LONG =============== on: 0.7246, SL: 0.714830769843672
+2024-11-13 09:01:15,244 - INFO - 09:00 EXIT SL 0.7136 1.53%
+2024-11-13 10:23:08,050 - INFO - 10:15 ============ ADA/USDT LONG =============== on: 0.5248, SL: 0.5159433835012827
+2024-11-13 10:55:20,641 - INFO - 10:55 MIN TARGET EXIT LONG 0.5389 2.65%
+
+bot restart ....
+2024-11-13 16:26:25,339 - INFO - 16:20 ============ FTM/USDT SHORT =============== on: 0.7168, SL: 0.7268828266963752
+2024-11-13 18:05:59,112 - INFO - 18:05 MIN TARGET EXIT SHORT 0.7138 0.42%
+2024-11-13 19:07:03,072 - INFO - 19:00 ============ FTM/USDT SHORT =============== on: 0.7408, SL: 0.7510768194004627
+2024-11-13 19:19:09,007 - INFO - 19:15 EXIT SL 0.752 1.50%
+2024-11-13 19:32:17,855 - INFO - 19:25 ============ ADA/USDT SHORT =============== on: 0.5646, SL: 0.573124188689948
+2024-11-13 19:54:26,919 - INFO - 19:50 EXIT SL 0.5751 1.84%
+2024-11-13 20:06:13,132 - INFO - 20:00 ============ FTM/USDT SHORT =============== on: 0.7644, SL: 0.7751658986590284
+2024-11-13 20:41:26,452 - INFO - 20:40 MIN TARGET EXIT SHORT 0.753 1.50%
+2024-11-13 21:02:24,015 - INFO - 20:55 ============ GALA/USDT SHORT =============== on: 0.02846, SL: 0.028918953935765403
+2024-11-13 22:05:46,190 - INFO - 22:05 MIN TARGET EXIT SHORT 0.028 1.63%
+2024-11-13 22:35:18,747 - INFO - 22:30 ============ XRP/USDT SHORT =============== on: 0.7322, SL: 0.7439304501558859
+2024-11-13 23:31:38,510 - INFO - 23:30 MIN TARGET EXIT SHORT 0.7137 2.56%
+2024-11-14 00:46:14,114 - INFO - 00:40 ============ AAVE/USDT LONG =============== on: 175.56, SL: 173.47056905187787
+2024-11-14 00:49:17,112 - INFO - 00:45 EXIT SL 173.16 1.38%
+2024-11-14 00:52:14,404 - INFO - 00:45 ============ FET/USDT LONG =============== on: 1.234, SL: 1.2142592011485696
+2024-11-14 01:34:29,667 - INFO - 01:30 EXIT SL 1.213 1.72%
+2024-11-14 01:37:17,886 - INFO - 01:30 ============ FTM/USDT LONG =============== on: 0.6839, SL: 0.672886922845515
+2024-11-14 02:10:30,765 - INFO - 02:10 MIN TARGET EXIT LONG 0.7055 3.11%
+2024-11-14 02:37:18,092 - INFO - 02:30 ============ AAVE/USDT LONG =============== on: 168.96, SL: 166.86662022837703
+2024-11-14 03:20:33,915 - INFO - 03:20 MIN TARGET EXIT LONG 170.77 1.07%
+2024-11-14 07:40:35,677 - INFO - 07:35 ============ GALA/USDT SHORT =============== on: 0.02748, SL: 0.027943825758320707
+2024-11-14 08:53:00,547 - INFO - 08:50 MIN TARGET EXIT SHORT 0.02672 2.80%
+2024-11-14 09:31:30,300 - INFO - 09:25 ============ SOL/USDT SHORT =============== on: 219.44, SL: 221.67271225263448
+2024-11-14 10:14:46,257 - INFO - 10:10 MIN TARGET EXIT SHORT 218.75 0.31%
+2024-11-14 10:41:15,257 - INFO - 10:35 ============ LTC/USDT SHORT =============== on: 80.99, SL: 81.8735886679729
+2024-11-14 10:58:22,698 - INFO - 10:55 EXIT SL 81.93 1.15%
+2024-11-14 11:44:31,707 - INFO - 11:35 ============ FTM/USDT SHORT =============== on: 0.7355, SL: 0.7452818027772471
+2024-11-14 12:20:44,948 - INFO - 12:20 MIN TARGET EXIT SHORT 0.7253 1.40%
+2024-11-14 12:32:15,880 - INFO - 12:25 ============ BNB/USDT LONG =============== on: 623.56, SL: 618.9673185434383
+2024-11-14 13:15:31,505 - INFO - 13:15 EXIT WIN 646.56 3.62%
+2024-11-14 14:58:16,741 - INFO - 14:50 ============ BNB/USDT LONG =============== on: 640.0, SL: 634.8339306835397
+2024-11-14 16:07:40,734 - INFO - 16:05 EXIT SL 633.13 1.08%
+2024-11-14 16:35:46,688 - INFO - 16:30 ============ ADA/USDT LONG =============== on: 0.5627, SL: 0.5554899348945919
+2024-11-14 17:26:05,374 - INFO - 17:25 MIN TARGET EXIT LONG 0.5682 0.97%
+2024-11-14 19:16:22,271 - INFO - 19:10 ============ XRP/USDT SHORT =============== on: 0.7371, SL: 0.7461739627187536
+2024-11-14 19:41:32,187 - INFO - 19:40 MIN TARGET EXIT SHORT 0.7192 2.46%
+2024-11-14 20:06:35,889 - INFO - 20:00 ============ XRP/USDT SHORT =============== on: 0.7524, SL: 0.7613246313144746
+2024-11-14 20:10:39,184 - INFO - 20:10 MIN TARGET EXIT SHORT 0.7233 3.94%
+2024-11-14 20:20:37,283 - INFO - 20:15 ============ ETH/USDT LONG =============== on: 3127.77, SL: 3104.7871571076316
+2024-11-14 20:30:42,502 - INFO - 20:30 EXIT SL 3094.34 1.07%
+2024-11-14 20:34:53,445 - INFO - 20:25 ============ ADA/USDT LONG =============== on: 0.5457, SL: 0.5382627594601166
+2024-11-14 21:40:16,591 - INFO - 21:40 MIN TARGET EXIT LONG 0.5524 1.22%
+2024-11-14 22:02:21,472 - INFO - 21:55 ============ XRP/USDT SHORT =============== on: 0.7287, SL: 0.7377064592894221
+2024-11-14 22:42:36,249 - INFO - 22:40 EXIT SL 0.7378 1.24%
+2024-11-15 01:46:08,672 - INFO - 01:40 ============ XRP/USDT LONG =============== on: 0.7688, SL: 0.759605331675239
+2024-11-15 02:10:18,355 - INFO - 02:10 MIN TARGET EXIT LONG 0.7799 1.43%
+2024-11-15 03:27:39,832 - INFO - 03:20 ============ XRP/USDT SHORT =============== on: 0.8212, SL: 0.83090580858017
+2024-11-15 03:46:47,903 - INFO - 03:45 EXIT SL 0.8319 1.29%
+2024-11-15 04:01:26,400 - INFO - 03:55 ============ ADA/USDT SHORT =============== on: 0.5986, SL: 0.6060199562862731
+2024-11-15 04:06:29,986 - INFO - 04:05 MIN TARGET EXIT SHORT 0.5799 3.17%
+2024-11-15 04:07:30,295 - INFO - 04:00 ============ ETH/USDT LONG =============== on: 3073.23, SL: 3050.2806643831823
+2024-11-15 05:05:51,147 - INFO - 05:05 EXIT SL 3047.5 0.84%
+2024-11-15 05:08:39,310 - INFO - 05:00 ============ FTM/USDT LONG =============== on: 0.6618, SL: 0.6524679442485436
+2024-11-15 05:40:51,685 - INFO - 05:40 MIN TARGET EXIT LONG 0.6749 1.96%
+2024-11-15 06:13:27,499 - INFO - 06:05 ============ ADA/USDT SHORT =============== on: 0.5934, SL: 0.6009296768871687
+2024-11-15 06:33:35,824 - INFO - 06:30 MIN TARGET EXIT SHORT 0.5835 1.68%
+2024-11-15 10:13:05,032 - INFO - 10:05 ============ FTM/USDT LONG =============== on: 0.6617, SL: 0.6526267525479429
+2024-11-15 11:10:25,571 - INFO - 11:10 MIN TARGET EXIT LONG 0.6728 1.66%
+2024-11-15 11:41:24,220 - INFO - 11:35 ============ LTC/USDT SHORT =============== on: 82.47, SL: 83.56708330081615
+2024-11-15 13:42:05,272 - INFO - 13:40 MIN TARGET EXIT SHORT 81.01 1.79%
+2024-11-15 13:43:14,685 - INFO - 13:35 ============ XRP/USDT LONG =============== on: 0.7761, SL: 0.7647455919024571
+2024-11-15 14:12:26,364 - INFO - 14:10 MIN TARGET EXIT LONG 0.7925 2.09%
