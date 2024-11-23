@@ -219,13 +219,16 @@ class TradingBot:
             t = timestamp_to_HHMM(candles[i][0])
             price = src[i]
             end = True if self.test else i == n-1
-            end2 = True if self.test else i == n-2
+            # end2 = True if self.test else i == n-2
+            end2 = True if self.test else i == n-1
           
             top = nwe[i] + sae
             bot = nwe[i] - sae
             targetL = top - (ch)
             targetS = bot + (ch)
             isBullish = candles[i-1][1] < candles[i-1][4]
+
+            # if end : print(datetime.now().strftime('%H:%M:%S') , symbol, "targetL:", targetL, "targetS:", targetS,  price, "Trade:",self.isOrderPlaced, "top:", top, "bot:", bot)
 
 
             if self.side == "SHORT" and end and self.isOrderPlaced:
@@ -303,8 +306,11 @@ class TradingBot:
                 inSL_long = False
             pass
 
+            # index_match_s = i + 1 < n and src[i + 1] < top 
+            index_match_s = True
+
             # Check conditions and print labels
-            if price > top and i + 1 < n and src[i + 1] < top and end2: 
+            if price > top and index_match_s and end and not self.isOrderPlaced: 
                 anySL_short = any('SHORT' == item['type'] for item in state['SL'])
                 freeze = anySL_short and symbol not in no_btc_dependent
                 on_break = price > hh
@@ -313,7 +319,7 @@ class TradingBot:
                 if on_break: print("Trade ignored coz breakout")
 
             # if src[i] > nwe[i] + sae and end2:
-                print(f"\n\n\n\n\n",datetime.now().strftime('%H:%M'), f"▼ at {t} (open: {price}) {i} n-{n-1}")
+                print(f"\n\n\n\n\n",datetime.now().strftime('%H:%M'), f"▼ at {t} (close: {price}) {i} n-{n-1}")
                 if self.side != "SHORT" and not inSL_short and not freeze and not on_break:
                     # print(self.isOrderPlaced, self.side, self.targetReach)
                     log(f"{t} ============ {symbol} SHORT =============== on: {price}, SL: {price + ch}")
@@ -330,8 +336,10 @@ class TradingBot:
 
 
 
-
-            if price < bot and i + 1 < n and src[i + 1] > bot and end2:   
+            # index_match_l = i + 1 < n and src[i + 1] > bot
+            index_match_l = True
+            if price < bot and index_match_l and end and not self.isOrderPlaced:   
+            # if src[i] < nwe[i] - sae and end2:
                 anySL_long = any('LONG' == item['type'] for item in state['SL'])
                 freeze = anySL_long and symbol not in no_btc_dependent
                 on_break = price < ll
@@ -341,8 +349,7 @@ class TradingBot:
                 if on_break: print("Trade ignored coz breakout")
 
 
-            # if src[i] < nwe[i] - sae and end2:
-                print(f"\n\n\n\n\n", datetime.now().strftime('%H:%M'), f"▲ at {t} (open: {price}) {i} n{n-1}")
+                print(f"\n\n\n\n\n", datetime.now().strftime('%H:%M'), f"▲ at {t} (close: {price}) {i} n{n-1}")
                 if self.side != "LONG" and not inSL_long and not freeze and not on_break:
                     # print(self.isOrderPlaced, self.side, self.targetReach)
                     log(f"{t} ============ {symbol} LONG =============== on: {price}, SL: {price - ch}" )

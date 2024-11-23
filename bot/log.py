@@ -2,6 +2,9 @@ from flask import Flask, send_file, render_template_string
 
 app = Flask(__name__)
 
+
+# look
+
 # Paths to your log files
 # scalp_log = '/home/ioss/Documents/Learn/future-bot/bot/scalp/log.txt'
 # scalp_terminal = '/home/ioss/Documents/Learn/future-bot/bot/log.log'
@@ -80,13 +83,21 @@ def index():
     <!-- LONG -->
     <div
       id="active_long"
-      class="hidden mb-2 relative text-slate-400 items-center bg-gradient-to-t to-transparant p-3 rounded-lg border-x border-b-red-600 border-slate-600 min-w-2xl h-64"
+      class="hidden mb-2 relative text-slate-400 items-center bg-gradient-to-t to-transparent p-3 rounded-lg border-x border-b-red-600 border-slate-600 min-w-2xl h-64"
     >
       <h1 class="text-2xl">
         <span class="bg-green-600 text-xl p-1 mr-2 text-white">LONG</span
         ><span id="symbol">___/USDT</span>
       </h1>
-      <p class="text-4xl my-2" id="cur_change">0%</p>
+
+      <div class="flex items-center">
+        <p class="text-4xl my-2" id="cur_change">0%</p>
+        <div class="ml-4">
+          <p>↑ <span id="high_change">0%</span></p>
+          <p>↓ <span id="low_change">0%</span></p>
+        </div>
+      </div>
+
       <p class="text-4xl my-2" id="cur_price">0.00</p>
 
       <div
@@ -119,13 +130,19 @@ def index():
     <!-- SHORT -->
     <div
       id="active_short"
-      class="hidden relative items-center bg-gradient-to-t to-transparant p-3 rounded-lg border-x border-t border-t-red-600 border-slate-600 min-w-2xl h-64"
+      class="hidden relative items-center bg-gradient-to-t to-transparent p-3 rounded-lg border-x border-t border-t-red-600 border-slate-600 min-w-2xl h-64"
     >
       <h1 class="text-2xl">
         <span class="bg-red-600 text-xl p-1 mr-2 text-white">SHORT</span
         ><span id="symbol_s">___/USDT</span>
       </h1>
-      <p class="text-4xl text-green-400 my-2" id="cur_change_s">0%</p>
+      <div class="flex items-center">
+        <p class="text-4xl my-2" id="cur_change_s">0%</p>
+        <div class="ml-4">
+          <p>↑ <span id="high_change_s">0%</span></p>
+          <p>↓ <span id="low_change_s">0%</span></p>
+        </div>
+      </div>
       <p class="text-4xl text-slate-400 my-2" id="cur_price_s">0.00</p>
 
       <div
@@ -153,11 +170,14 @@ def index():
         id="style_tp_s"
         class="absolute left-0 bottom-0 bg-gradient-to-t from-green-500/30 h-4 w-full"
       ></div>
+
+      <p id="time_s" class="text-4xl absolute right-20 text-slate-600">00:00</p>
     </div>
 
+    <!-- look -->
     <div id="logDisplay">
       <!-- <div
-        class="items-center bg-gradient-to-t from-[#00c45240] to-transparant p-3 rounded-lg border border-green-900"
+        class="items-center bg-gradient-to-t from-[#00c45240] to-transparent p-3 rounded-lg border border-green-900"
       >
         <h1 class="text-2xl">
           <span class="bg-green-600 text-xl p-1 mr-2">LONG</span>BTC/USDT
@@ -187,16 +207,24 @@ def index():
       // Function to read the log.txt file and display its contents
       var current = null;
       var positions = [];
+      var high_change = 0;
+      var low_change = 0;
+      let lastEmitTime = 0;
+
       loadLog();
       async function loadLog(logType) {
+        positions.length = 0
         $(`#logDisplay`).empty();
-        // const response = await fetch(`/log.txt`);
+        
+        // look
+        //const response = await fetch(`/log.txt`);
         const response = await fetch(`/log/` + logType);
         const text = await response.text();
-    
         const linesArray = text.split(`
-`)
-       
+`);
+        // console.log(linesArray);
+
+        // L O G S
 
         if (logType) {
           $(`#logDisplay`).removeClass();
@@ -264,6 +292,8 @@ def index():
             }
           });
 
+          // C A R D S
+
           const data = positions.reverse();
 
           let loses = data.filter((_) => _.status == `SL`);
@@ -292,7 +322,7 @@ def index():
                 : pos.change
                 ? `from-[#00c45240] border-green-900`
                 : `border-none`
-            } to-transparant p-3 rounded-lg border ">
+            } to-transparent p-3 rounded-lg border ">
           <h1 class="text-2xl">
             <span class="${
               pos.type == `LONG` ? `bg-green-600` : `bg-red-600`
@@ -327,13 +357,39 @@ def index():
 
           // A C T I V E   T R A D E
 
+          function getPastHoursAndMinutes(timeString) {
+            // Parse the input time string
+            const [inputHours, inputMinutes, inputSeconds] = timeString
+              .split(":")
+              .map(Number);
+
+            // Create a Date object for the current time
+            const now = new Date();
+
+            // Create a Date object for the input time
+            const inputTime = new Date();
+            inputTime.setHours(inputHours, inputMinutes, inputSeconds);
+
+            // Calculate the difference in milliseconds
+            const differenceMs = now - inputTime;
+
+            // Convert the difference to hours and minutes
+            const differenceMinutes = Math.floor(differenceMs / 1000 / 60); // Total minutes
+            const hours = Math.floor(differenceMinutes / 60); // Extract hours
+            const minutes = differenceMinutes % 60; // Extract remaining minutes
+
+            // return { hours, minutes };
+            if (hours == 0) return minutes + "m";
+            return hours + "h " + minutes + "m";
+          }
+
           // Helper function to calculate the percentage position of a price
           function calculatePosition(price, min, max) {
             return ((price - min) / (max - min)) * 100;
           }
 
           if (current) {
-            console.log({ current });
+            // console.log({ current });
 
             const sl = Number(current.sl);
             const entry_price = Number(current.entry_price.replace(",", ""));
@@ -383,10 +439,20 @@ def index():
 
                 $("#cur_change")
                   .text(changePercentage.toFixed(2) + "%")
+                  .removeClass("text-green-400 text-red-400")
                   .addClass(
                     changePercentage > 0 ? "text-green-400" : "text-red-400"
                   );
                 $("#cur_price").text(price);
+
+                high_change =
+                  changePercentage > high_change
+                    ? changePercentage
+                    : high_change;
+                low_change =
+                  changePercentage < low_change ? changePercentage : low_change;
+                $("#high_change").text(high_change.toFixed(2) + "%");
+                $("#low_change").text(low_change.toFixed(2) + "%");
 
                 const curPriceLinePosition = calculatePosition(
                   price,
@@ -405,6 +471,15 @@ def index():
                       : "orange"
                   );
                 $("#cur_price_line").find("p").text(price);
+
+                const now = Date.now();
+                if (now - lastEmitTime >= 1000) {
+                  // Check if 1 second has passed
+                  lastEmitTime = now;
+                  $("#time_s").text(
+                    getPastHoursAndMinutes(current.start_time.split(`,`)[0])
+                  );
+                }
               };
 
               // Event listener for when the WebSocket connection is closed
@@ -449,10 +524,22 @@ def index():
 
                 $("#cur_change_s")
                   .text(-changePercentage.toFixed(2) + "%")
+                  .removeClass("text-green-400 text-red-400")
                   .addClass(
                     changePercentage < 0 ? "text-green-400" : "text-red-400"
                   );
                 $("#cur_price_s").text(price);
+
+                high_change =
+                  -changePercentage > high_change
+                    ? -changePercentage
+                    : high_change;
+                low_change =
+                  -changePercentage < low_change
+                    ? -changePercentage
+                    : low_change;
+                $("#high_change_s").text(high_change.toFixed(2) + "%");
+                $("#low_change_s").text(low_change.toFixed(2) + "%");
 
                 // Calculate line positions
                 const entryLinePosition = calculatePosition(
@@ -505,6 +592,15 @@ def index():
                   .css("height", entryLinePosition - curPriceLinePosition + "%")
                   .find("p")
                   .text("Take Profit"); // Add label dynamically
+
+                const now = Date.now();
+                if (now - lastEmitTime >= 1000) {
+                  // Check if 1 second has passed
+                  lastEmitTime = now;
+                  $("#time_s").text(
+                    getPastHoursAndMinutes(current.start_time.split(`,`)[0])
+                  );
+                }
               };
 
               // Event listener for when the WebSocket connection is closed

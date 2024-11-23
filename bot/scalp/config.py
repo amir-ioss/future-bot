@@ -1,5 +1,5 @@
 
-timeframe = '5m'
+timeframe = '1m'
 leverage = 20
 invest = 10 # in USDT
 
@@ -49,4 +49,4 @@ no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
 
 # BOT 
 bot_name = "Scalping Bot"
-notify = False # False for server run 
+notify = True # False for server run 
