@@ -13,8 +13,8 @@ scalp_log = '/home/ec2-user/bot/scalp/log.txt'
 scalp_terminal = '/home/ec2-user/bot/scalp/nohup.log'
 
 
-swing_log = '/home/ec2-user/swing/log.txt'
-swing_terminal = '/home/ec2-user/swing/nohup.log'
+# swing_log = '/home/ec2-user/swing/log.txt'
+# swing_terminal = '/home/ec2-user/swing/nohup.log'
 
 default_log_file = scalp_log
 
@@ -56,18 +56,18 @@ def index():
         Scalp Terminal
       </button>
 
-      <button
+     <!-- <button
         class="border border-green-400 p-2"
         onclick="loadLog(`swing_log`)"
-      >
+      > 
         Swing Log
-      </button>
-      <button
+      </button> 
+     <button
         class="border border-green-400 p-2"
         onclick="loadLog(`swing_terminal`)"
       >
         Swing Terminal
-      </button>
+      </button> -->
 
       <div
         class="h-2 flex flex-1 bg-gray-600 ml-8 rounded-full overflow-hidden"
@@ -78,6 +78,8 @@ def index():
 
       <p id="wins" class="text-green-400">_</p>
       <p id="los" class="text-red-400 mr-8">_</p>
+      <p id="pnl" class="text-slate-400 mr-8">_</p>
+
     </div>
 
     <!-- LONG -->
@@ -251,6 +253,8 @@ def index():
             if (_.includes(`EXIT`)) {
               if (_.includes(`EXIT SL`))
                 cls.push(`text-pink-600 bg-[#db277730]`);
+              if (_.includes(`EXIT TRAILING`))
+                cls.push(`text-orange-600 bg-[#db277730]`);
               if (_.includes(`MIN TARGET`))
                 cls.push(`text-emerald-400 bg-[#34d39930]`);
               if (_.includes(`EXIT WIN`))
@@ -278,9 +282,11 @@ def index():
               temp_pos.end_date = l[0];
               temp_pos.end_time = l[1];
               temp_pos.status = l[7];
-              temp_pos.change = l.at(-1);
+              temp_pos.change = l.at(-3);
+              temp_pos.high = l.at(-2);
+              temp_pos.low = l.at(-1);
 
-              if (_.includes(`EXIT WIN`) || _.includes(`EXIT SL`)) {
+              if (_.includes(`EXIT WIN`) || _.includes(`EXIT SL`)  || _.includes(`EXIT TRAILING`)) {
                 temp_pos.exit_price = l[8];
               }
               if (_.includes(`MIN TARGET`)) {
@@ -305,6 +311,14 @@ def index():
           $(`#los_bar`).css(`width`, (los / data.length) * 100 + `%`);
           $(`#wins_bar`).css(`width`, (wins / data.length) * 100 + `%`);
 
+          var pnl_win = data.reduce((a, b) => a + parseFloat((b?.change && b.status != `SL`)? b.change.replace(`%`, ``) : 0), 0);
+          var pnl_lose = loses.reduce((a, b) => a + parseFloat(b?.change ? b.change.replace(`%`, ``) : 0), 0);
+          var pnl = pnl_win-pnl_lose
+          $(`#pnl`).text((pnl-(pnl*0.10)).toFixed(2)+'%');
+          
+
+
+
           data.map((pos, i) => {
             // check current position
             if (pos?.symbol && !pos?.exit_price) {
@@ -316,38 +330,46 @@ def index():
 
             let isLoss = pos.status == `SL`;
             $(`#logDisplay`)
-              .append(`<div class="items-center bg-gradient-to-t ${
+              .append(`<div class="items-center text-gray-300 bg-gradient-to-t ${
               isLoss
-                ? `from-[#c4004b20] border-red-900`
-                : pos.change
-                ? `from-[#00c45240] border-green-900`
-                : `border-none`
-            } to-transparent p-3 rounded-lg border ">
-          <h1 class="text-2xl">
-            <span class="${
-              pos.type == `LONG` ? `bg-green-600` : `bg-red-600`
-            } text-xs p-1 mr-2">${pos.type}</span>${pos.symbol}
-          </h1>
-          <p class="text-3xl ${
-            isLoss ? `text-red-400` : `text-green-400`
-          } my-2">
-            ${pos.change ?? `_`} <span class="text-gray-600 text-sm">${
+                ? (pos.type == `LONG` ? pos.high : pos.low) > 1 ? `from-[#ffec2140] border-green-900`: `from-[#c4004b20] border-red-900`
+                : `from-[#00c45240] border-green-900`
+            } to-transparrnt p-3 rounded-lg border ">
+            <h1 class="text-2xl">
+              <span class="${
+                pos.type == `LONG` ? `bg-green-600` : `bg-red-600`
+              } text-xs p-1 mr-2">${pos.type}</span>${pos.symbol}
+            </h1>
+            <div class="flex">
+            
+            <p class="text-3xl ${
+              isLoss ? `text-red-400` : `text-green-400`
+            } my-2">
+              ${pos.change ?? `_`} <span class="text-gray-600 text-sm">${
               pos.status
             }</span>
-          </p>
+            </p>
+
+            <div class="ml-4 text-gray-500">
+              <p>↑ <span>${pos.type == `LONG` ? pos.high : pos.low}%</span></p>
+              <p>↓ <span>${pos.type == `LONG` ? pos.low : pos.high}%</span></p>
+            </div>
+            </div>
+  
+
           <div class="flex justify-between">
             <div>
-                <p class="text-white">${pos.start_time.split(`,`)[0]}</p>
+              <p>${pos.start_time.split(`,`)[0]}</p>
               <p class="text-gray-400 text-xs">${pos.start_date}</p>
-              <p class="text-white">${pos.entry_price.replace(`,`, ``)}</p>
+              <p>${pos.entry_price.replace(`,`, ``)}</p>
             </div>
             <div class="flex items-center">
               <p class="text-gray-400">-</p>
             </div>
             <div>
-                <p class="text-white">${pos.end_time?.split(`,`)[0]}</p>
+              <p>${pos.end_time?.split(`,`)[0]}</p>
               <p class="text-gray-400 text-xs">${pos.end_date}</p>
-              <p class="text-white">1${pos.exit_price}</p>
+              <p>1${pos.exit_price}</p>
             </div>
           </div>
           <pre class="text-gray-500">SL : ${Number(pos.sl).toFixed(4)}</pre>
@@ -629,10 +651,10 @@ def get_log(log_type):
         return send_file(scalp_log, mimetype='text/plain')
     elif log_type == 'scalp_terminal':
         return send_file(scalp_terminal, mimetype='text/plain')
-    if log_type == 'swing_log':
-        return send_file(swing_log, mimetype='text/plain')
-    elif log_type == 'swing_terminal':
-        return send_file(swing_terminal, mimetype='text/plain')
+    # if log_type == 'swing_log':
+    #     return send_file(swing_log, mimetype='text/plain')
+    # elif log_type == 'swing_terminal':
+    #     return send_file(swing_terminal, mimetype='text/plain')
     else:
         # Default case: send the default log file if log_type doesn't match
         return send_file(default_log_file, mimetype='text/plain')

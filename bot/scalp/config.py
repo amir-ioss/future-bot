@@ -50,3 +50,5 @@ no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
 # BOT 
 bot_name = "Scalping Bot"
 notify = True # False for server run 
+
+period = 10
