@@ -9,11 +9,11 @@ amount_usdt = invest * leverage  # Amount in USDT to spend
 
 
 accounts = [
-    {
-        'username': 'amir',
-        'api_key': 'h5J8MK5WP5t2DKADpFvOhoE98chuKJxsSB7ny239DWaO49amJmkmzFgus7wEZPpH',        
-        'api_secret': 'JEk6zkYmIrwOS1JswoIdPfwndqpfXRsfc00dS4F8rJS6c93qa8PRpLecOpCc8peb'
-    },
+    # {
+    #     'username': 'amir',
+    #     'api_key': 'h5J8MK5WP5t2DKADpFvOhoE98chuKJxsSB7ny239DWaO49amJmkmzFgus7wEZPpH',        
+    #     'api_secret': 'JEk6zkYmIrwOS1JswoIdPfwndqpfXRsfc00dS4F8rJS6c93qa8PRpLecOpCc8peb'
+    # },
     # {
     #   	'username': 'shuhaib',
     #     'api_key': '1Cno4uAqF0XMZ5nNTCy2wSXL7wG4cXypnNVGnXdtELkadzhr0N2TJANVVqCRG7yV',        
@@ -26,6 +26,7 @@ accounts = [
     # }
 ]
 
+# symbols = ['SOL/USDT']
 
 symbols = [
            'ETH/USDT',
@@ -45,6 +46,7 @@ symbols = [
 
 
 no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
+# no_btc_dependent = []
 
 
 # BOT 
