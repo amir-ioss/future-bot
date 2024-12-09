@@ -43,8 +43,8 @@ def fetch_ohlcv(symbol="BTC/USDT", timeframe="1m", limit=10):
 
 inputs = {
     "0": "fetch_ohlcv('BTC/USDT', '1m', 50)",
-    "1": "talib.MACD(output['0']['close'],12,26,9)",
-    "2": "output['1'][0] > output['1'][0]"
+    "1": "talib.MACD(output['0']['AMIR'],ABBASY,TEST,,,26,9)",
+    "2": "[output['1']['AMIR'][i] > output['1']['TEST'][i] for i in range(len(output['1']['AMIR']))]"
 }
 # # Initialize the output dictionary
 output = {}
@@ -55,7 +55,23 @@ def resolve_dependencies(inputs):
         for key, formula in list(inputs.items()):
             try:
                 # Attempt to evaluate the formula
-                output[key] = eval(formula)
+
+                if "->" in formula:
+                    expression, keys_str = formula.split("->")
+                    print("Expression:", expression.strip())
+                    print("Keys:", keys_str.strip())
+
+                    out = {}
+                    keys = eval(keys_str.strip())  # Evaluate keys part
+                    res = eval(expression.strip())
+                    for i, key_name in enumerate(keys):
+                        out[key_name] = res[i]
+
+                    output[key] = out
+                else:
+                    output[key] = eval(formula)
+
+                    
                 del inputs[key]  # Remove resolved item
                 print('\n\n\n\n\n==================================')
                 print(key, formula,  output[key])
@@ -65,24 +81,44 @@ def resolve_dependencies(inputs):
                 pass
 
 # Resolve all inputs
-# resolve_dependencies(inputs)
+resolve_dependencies(inputs)
 
 
 # Print the final output
-# print("---", output['4'])
+print("---", output['2'])
+
+
+
+
+# output = {'0': {'close': np.random.random(100)}}  # Replace with actual closing price data
 
 ob = {
 
 }
 
-def mcd():
-    return 1,2
+# def mcd():
+#     return 1,2
 
-ob['0'] = eval("mcd()")
+# ob['0'] = eval("mcd()")
 
-print(ob['0'][0])
+# print(ob['0'][0])
 
 
+# formula = "talib.MACD(output['0']['close'], 12, 26, 9) -> ['hist', 'macd', 'signal']"
+
+# if "->" in formula:
+#     expression, keys_str = formula.split("->")
+#     print("Expression:", expression.strip())
+#     print("Keys:", keys_str.strip())
+
+#     out = {}
+#     keys = eval(keys_str.strip())  # Evaluate keys part
+#     res = eval(expression.strip())
+#     for i, key_name in enumerate(keys):
+#         out[key_name] = res[i]
+#     ob['1'] = out
+
+# print(ob['1']['signal'][-1])
 
 
 

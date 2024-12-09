@@ -21,11 +21,11 @@ from db.store import Store, checkInSL  # Use absolute import
 
 # Initialize your exchange
 exchange = ccxt.binance({
-    # 'apiKey': accounts[0]['api_key'], # master account
-    # 'secret': accounts[0]['api_secret'], # master account
+    'apiKey': accounts[0]['api_key'], # master account
+    'secret': accounts[0]['api_secret'], # master account
     'enableRateLimit': True,
     'options': {
-        # 'defaultType': 'future'  # Use 'spot' for spot trading, 'future' for Futures
+        'defaultType': 'future'  # Use 'spot' for spot trading, 'future' for Futures
     }
 })
 
@@ -115,7 +115,7 @@ class TradingBot:
 
         # Input parameters
         h = 8.0
-        mult = 1.5 #3.0
+        mult = 2.5 #3.0
         src = closes
         n = len(src)
 
@@ -293,7 +293,7 @@ class TradingBot:
 
                 # Target hit
                 if (price < targetS or candles[i-1][3] < targetS) and self.isOrderPlaced: self.targetReach = True
-                if self.targetReach and price > targetS:
+                if self.targetReach and price > targetS and not price < ll:
                     log(f"{t} MIN TARGET EXIT SHORT {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
@@ -355,7 +355,7 @@ class TradingBot:
 
                 # Target hit
                 if (price > targetL or candles[i-1][2] > targetL) and self.isOrderPlaced: self.targetReach = True
-                if self.targetReach and price < targetL:
+                if self.targetReach and price < targetL and not price > hh:
                     log(f"{t} MIN TARGET EXIT LONG {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
@@ -369,10 +369,10 @@ class TradingBot:
             if price > top and end and not self.isOrderPlaced: 
                 # anySL_short = any('SHORT' == item['type'] for item in state['SL'])
                 # freeze = symbol not in no_btc_dependent
-                on_break = price > hh
+                on_break = price > hh or price < ll
                 # if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
                 # if inSL_short: print("Trade ignored coz of last SL")
-                if on_break: print("SHORT trade ignored coz bullish breakout")
+                if on_break: print("SHORT trade ignored coz breakout")
 
             # if src[i] > nwe[i] + sae and end2:
                 print(f"\n\n\n\n\n",datetime.now().strftime('%H:%M'), f"▼ at {t} (close: {price}) {i} n-{n-1}")
@@ -384,7 +384,7 @@ class TradingBot:
                     self.initialTarget = top
                     self.trailing = False
                     self.targetReach = False
-                    self.super_high, self.super_low  = price, price
+                    self.super_high, self.super_low  = 0, 0
 
                     # ENTRY("SHORT")
                     asyncio.run(ENTRY("SHORT"))
@@ -396,11 +396,11 @@ class TradingBot:
             # if src[i] < nwe[i] - sae and end2:
                 # anySL_long = any('LONG' == item['type'] for item in state['SL'])
                 # freeze = anySL_long and symbol not in no_btc_dependent
-                on_break = price < ll
+                on_break = price < ll or price > hh
 
                 # if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
                 # if inSL_long: print("Trade ignored coz of last SL")
-                if on_break: print("LONG trade ignored coz bearish breakout")
+                if on_break: print("LONG trade ignored coz breakout")
 
 
                 print(f"\n\n\n\n\n", datetime.now().strftime('%H:%M'), f"▲ at {t} (close: {price}) {i} n{n-1}")
@@ -412,7 +412,7 @@ class TradingBot:
                     self.initialTarget = bot
                     self.trailing = False
                     self.targetReach = False
-                    self.super_high, self.super_low  = price, price
+                    self.super_high, self.super_low  = 0, 0
 
                     asyncio.run(ENTRY("LONG"))
 
