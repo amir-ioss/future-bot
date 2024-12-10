@@ -42,9 +42,10 @@ def fetch_ohlcv(symbol="BTC/USDT", timeframe="1m", limit=10):
 
 
 inputs = {
-    "0": "fetch_ohlcv('BTC/USDT', '1m', 50)",
-    "1": "talib.MACD(output['0']['AMIR'],ABBASY,TEST,,,26,9)",
-    "2": "[output['1']['AMIR'][i] > output['1']['TEST'][i] for i in range(len(output['1']['AMIR']))]"
+    "0": "10000",
+    "1": "100",
+    "2": "output['0'] - output['1']",
+    "3": "output['2'] - output['1']"
 }
 # # Initialize the output dictionary
 output = {}
@@ -58,8 +59,8 @@ def resolve_dependencies(inputs):
 
                 if "->" in formula:
                     expression, keys_str = formula.split("->")
-                    print("Expression:", expression.strip())
-                    print("Keys:", keys_str.strip())
+                    # print("Expression:", expression.strip())
+                    # print("Keys:", keys_str.strip())
 
                     out = {}
                     keys = eval(keys_str.strip())  # Evaluate keys part
@@ -74,7 +75,8 @@ def resolve_dependencies(inputs):
                     
                 del inputs[key]  # Remove resolved item
                 print('\n\n\n\n\n==================================')
-                print(key, formula,  output[key])
+                print(key, formula)
+                # print(output[key])
                 break
             except KeyError:
                 # Skip if dependencies are not resolved yet
@@ -85,7 +87,7 @@ resolve_dependencies(inputs)
 
 
 # Print the final output
-print("---", output['2'])
+print("---", output['3'])
 
 
 

@@ -395,3 +395,62 @@ None2024-12-05 13:32:14,673 - INFO - 13:32 ============ NEAR/USDT SHORT ========
 2024-12-06 16:33:56,325 - INFO - 16:33 ============ ETH/USDT SHORT =============== on: 3875.41, SL: 3878.949494680232
 2024-12-06 16:36:38,541 - INFO - 16:36 EXIT SL 3879.21 0.10% 3875.41 3875.41
 2024-12-06 16:39:00,484 - INFO - 16:38 ============ DASH/USDT SHORT =============== on: 60.41, SL: 60.51770036123543
+2024-12-10 10:31:39,141 - INFO - 10:30 ============ LTC/USDT SHORT =============== on: 111.14, SL: 112.33031512297445
+2024-12-10 10:31:41,649 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 10:31:41,649 - INFO - SHORT order placed for account amir:
+None
+2024-12-10 10:36:24,777 - INFO - trailing...
+2024-12-10 10:39:26,774 - INFO - 10:35 EXIT SL 112.47 1.19% 1.19 0.63
+2024-12-10 10:39:27,353 - INFO - SHORT closed successfully for account amir:
+None
+2024-12-10 10:39:27,369 - INFO - 10:35 ============ LTC/USDT SHORT =============== on: 112.47, SL: 113.66619070733296
+2024-12-10 10:39:27,629 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 10:39:27,630 - INFO - SHORT order placed for account amir:
+None
+2024-12-10 11:21:58,285 - INFO - trailing...
+2024-12-10 11:22:38,720 - INFO - 11:20 EXIT SL 113.88 1.25% 1.26 1.50
+2024-12-10 11:22:39,115 - INFO - SHORT closed successfully for account amir:
+None
+2024-12-10 11:43:53,648 - INFO - 11:40 ============ AAVE/USDT SHORT =============== on: 261.62, SL: 264.55421428803777
+2024-12-10 11:43:54,397 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 11:43:54,397 - INFO - SHORT order placed for account amir:
+None
+2024-12-10 11:51:39,609 - INFO - trailing...
+2024-12-10 11:51:39,609 - INFO - 11:50 EXIT SL 264.92 1.25% 1.31 0.00
+2024-12-10 11:51:40,237 - INFO - SHORT closed successfully for account amir:
+None
+2024-12-10 17:16:03,577 - INFO - 17:15 ============ FTM/USDT LONG =============== on: 1.1596, SL: 1.1452585290730453
+2024-12-10 17:16:06,492 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 17:16:06,493 - INFO - LONG order placed for account amir:
+None
+2024-12-10 17:31:38,631 - INFO - trailing...
+2024-12-10 17:34:20,671 - INFO - 17:30 EXIT TRAILING 1.1644 0.50% 1.08 0.00
+2024-12-10 17:34:21,396 - INFO - LONG closed successfully for account amir:
+None
+2024-12-10 17:47:52,072 - INFO - 17:45 ============ FET/USDT LONG =============== on: 1.7361, SL: 1.7162914747014473
+2024-12-10 17:47:52,855 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 17:47:52,855 - INFO - LONG order placed for account amir:
+None
+2024-12-10 18:03:44,132 - INFO - trailing...
+2024-12-10 18:04:44,805 - INFO - 18:00 EXIT SL 1.7115 1.43% 1.11 1.45
+2024-12-10 18:04:45,414 - INFO - LONG closed successfully for account amir:
+None
+2024-12-10 18:04:45,435 - INFO - 18:00 ============ FET/USDT LONG =============== on: 1.7115, SL: 1.6915720191652364
+2024-12-10 18:04:45,711 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 18:04:45,712 - INFO - LONG order placed for account amir:
+None
+2024-12-10 18:23:38,636 - INFO - trailing...
+2024-12-10 18:23:58,861 - INFO - 18:20 EXIT SL 1.69 1.26% 1.48 1.33
+2024-12-10 18:23:59,188 - INFO - LONG closed successfully for account amir:
+None
+2024-12-10 18:27:41,692 - INFO - 18:25 ============ AAVE/USDT LONG =============== on: 274.59, SL: 271.2395279051554
+2024-12-10 18:27:42,037 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 18:27:42,037 - INFO - LONG order placed for account amir:
+None
+2024-12-10 18:31:04,418 - INFO - trailing...
+2024-12-10 18:31:44,865 - INFO - trailing + 1.5
+2024-12-10 18:33:25,986 - INFO - trailing + 2.0
+2024-12-10 18:34:06,432 - INFO - trailing + 2.5
+2024-12-10 18:35:07,106 - INFO - 18:35 MIN TARGET EXIT LONG 280.55 2.15% 2.66 0.64
+2024-12-10 18:35:07,695 - INFO - LONG closed successfully for account amir:
+None
