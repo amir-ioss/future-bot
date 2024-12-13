@@ -11,10 +11,9 @@ import json
 import math
 import asyncio
 
-
-from config import accounts, symbols, timeframe, leverage, amount_usdt, no_btc_dependent
+from config import accounts, symbols, timeframe, leverage, amount_usdt, no_btc_dependent, period
 from order import long, short, close_position, check_balance, create_exchange_instances
-from help import log, timestamp_to_HHMM, trigger_notification, perc_diff
+from help import log, timestamp_to_HHMM, trigger_notification, perc_diff, pivot_high, pivot_low
 
 # from utils.trv import pivot_low, pivot_high
 from db.store import Store, checkInSL  # Use absolute import
@@ -100,10 +99,15 @@ class TradingBot:
         # self.lows = [candle[3] for candle in candles]
         closes = [candle[4] for candle in candles]
         
-        hh = max(closes[-50:])
-        ll = min(closes[-50:])
-        state = self.store.getState('scalp')
-        SL = state['SL']
+        # hh = max(closes[-50:])
+        # ll = min(closes[-50:])
+        # state = self.store.getState('scalp')
+        # SL = state['SL']
+
+        pivot_highs = pivot_high(closes, left_bars=10, right_bars=10)
+        pivot_lows = pivot_low(closes, left_bars=10, right_bars=10)
+        _ll = next((x for x in reversed(pivot_lows) if x is not None), None)
+        _hh = next((x for x in reversed(pivot_highs) if x is not None), None)
 
 
 
@@ -111,7 +115,7 @@ class TradingBot:
 
         # Input parameters
         h = 8.0
-        mult = 3 #3.0
+        mult = 2.5 #3.0
         src = closes
         n = len(src)
 
@@ -223,8 +227,8 @@ class TradingBot:
             t = timestamp_to_HHMM(candles[i][0])
             price = src[i]
             end = True if self.test else i == n-1
-            # end2 = True if self.test else i == n-2
-            end2 = True if self.test else i == n-1
+            hh = _hh+(ch/2)
+            ll = _ll-(ch/2)
           
             top = nwe[i] + sae
             bot = nwe[i] - sae
@@ -246,41 +250,54 @@ class TradingBot:
                     low_change = perc_diff(self.entryPrice, min(candles[-2][3], candles[-1][3]))
                     self.super_low = low_change if low_change > self.super_low else self.super_low 
 
-                # TRAILING
-                if self.trailing and cur_change < self.super_low/2:
-                    log(f"{t} EXIT TRAILING {price} {self.super_low/2:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
+
+                # TRAILING -------------------------------------------------
+                
+                if self.trailing and cur_change > (self.trailing+.5): 
+                    self.trailing += .5
+                    log(f"trailing + {self.trailing}")
+
+                # if self.trailing and cur_change < self.super_high/2:
+                if self.trailing and cur_change < (self.trailing-.5):
+                    log(f"{t} EXIT TRAILING {price} {self.trailing-.5:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.trailing = False
                     pass
 
                 if cur_change > 1 and not self.trailing: 
-                    self.trailing = True
+                    self.trailing = 1
                     log(f"trailing...")
+
+                # ----------------------------------------------------------
                     
 
-                if price < bot or candles[i-1][3] < bot:
+                if price < bot or candles[i-1][3] < bot and self.isOrderPlaced:
                     self.targetReach = True
                     if isBullish:
                         log(f"{t} EXIT WIN {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                         asyncio.run(EXIT())
                         self.isOrderPlaced = False
+                        self.trailing = False
                     pass
 
                 # STOP LOSS
-                if price > sl:
+                if price > sl and self.isOrderPlaced:
                     log(f"{t} EXIT SL {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
-                    SL.append({symbol: candles[i][0], 'type': "SHORT"})
-                    self.store.setState('scalp', {'SL':SL}, 'SL freezed short')
+                    self.trailing = False
+                    # SL.append({symbol: candles[i][0], 'type': "SHORT"})
+                    # self.store.setState('scalp', {'SL':SL}, 'SL freezed short')
                     pass
 
                 # Target hit
                 if (price < targetS or candles[i-1][3] < targetS) and self.isOrderPlaced: self.targetReach = True
-                if self.targetReach and price > targetS:
+                if self.targetReach and price > targetS and not price < ll:
                     log(f"{t} MIN TARGET EXIT SHORT {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.trailing = False
 
 
         
@@ -296,82 +313,70 @@ class TradingBot:
                     self.super_low = low_change if low_change > self.super_low else self.super_low 
 
 
-                # TRAILING
-                if self.trailing and cur_change < self.super_high/2:
-                    log(f"{t} EXIT TRAILING {price} {self.super_high/2:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
+                # TRAILING -------------------------------------------------
+                
+                if self.trailing and cur_change > (self.trailing+.5): 
+                    self.trailing += .5
+                    log(f"trailing + {self.trailing}")
+
+                # if self.trailing and cur_change < self.super_high/2:
+                if self.trailing and cur_change < (self.trailing-.5):
+                    log(f"{t} EXIT TRAILING {price} {self.trailing-.5:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.trailing = False
                     pass
 
                 if cur_change > 1 and not self.trailing: 
-                    self.trailing = True
+                    self.trailing = 1
                     log(f"trailing...")
 
+                # ----------------------------------------------------------
 
-                if price > top or candles[i-1][2] > top:
+
+                if price > top or candles[i-1][2] > top and self.isOrderPlaced:
                     self.targetReach = True
                     if not isBullish:
                         log(f"{t} EXIT WIN {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                         asyncio.run(EXIT())
                         self.isOrderPlaced = False
+                        self.trailing = False
                     pass
 
                 # STOP LOSS
-                if price < sl:
+                if price < sl and self.isOrderPlaced:
                     log(f"{t} EXIT SL {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
-                    SL.append({symbol: candles[i][0], 'type': "LONG"})
-                    self.store.setState('scalp', {'SL':SL}, 'SL freezed long')
+                    self.trailing = False
+                    # SL.append({symbol: candles[i][0], 'type': "LONG"})
+                    # self.store.setState('scalp', {'SL':SL}, 'SL freezed long')
                     pass
 
                 # Target hit
                 if (price > targetL or candles[i-1][2] > targetL) and self.isOrderPlaced: self.targetReach = True
-                if self.targetReach and price < targetL:
+                if self.targetReach and price < targetL and not price > hh:
                     log(f"{t} MIN TARGET EXIT LONG {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.trailing = False
 
-
-            # if(t == datetime.now().strftime('%H:%M')):
-            #     # print(f'{t}', end='\r', flush=True) 
-            #     print(f'{t}  min-target: {targetS if self.side == "SHORT" else targetL}', end='\r', flush=True) 
-            #     pass
-            state = self.store.getState('scalp')
-
-            inSL_short, timePassed_short = checkInSL(state['SL'], symbol, 'SHORT')
-            # remove from SL
-            if inSL_short and price > hh and timePassed_short:
-                state['SL'] = [elem for elem in SL if symbol not in elem]
-                self.store.setState('scalp', state, 'hh reach - enabled both trade')
-                inSL_short = False
-                pass
-
-        
-
-            inSL_long, timePassed_long = checkInSL(state['SL'], symbol, 'LONG')
-            # remove from SL
-            if price < ll and inSL_long and timePassed_long:
-                state['SL'] = [elem for elem in SL if symbol not in elem]
-                self.store.setState('scalp', state, 'll reach - enabled both trade')
-                inSL_long = False
-            pass
 
             # index_match_s = i + 1 < n and src[i + 1] < top 
-            index_match_s = True
+            # if end: print(price , hh, price > hh, _hh)
 
             # Check conditions and print labels
-            if price > top and index_match_s and end and not self.isOrderPlaced: 
-                anySL_short = any('SHORT' == item['type'] for item in state['SL'])
-                freeze = anySL_short and symbol not in no_btc_dependent
-                on_break = price > hh
-                if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
-                if inSL_short: print("Trade ignored coz of last SL")
-                if on_break: print("Trade ignored coz breakout")
+            if price > top and end and not self.isOrderPlaced: 
+                # anySL_short = any('SHORT' == item['type'] for item in state['SL'])
+                # freeze = symbol not in no_btc_dependent
+                on_break = price > hh or price < ll
+                # if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
+                # if inSL_short: print("Trade ignored coz of last SL")
+                if on_break: print("SHORT trade ignored coz breakout")
 
             # if src[i] > nwe[i] + sae and end2:
                 print(f"\n\n\n\n\n",datetime.now().strftime('%H:%M'), f"▼ at {t} (close: {price}) {i} n-{n-1}")
-                if self.side != "SHORT" and not inSL_short and not freeze and not on_break:
+                if self.side != "SHORT" and not on_break:
                     # print(self.isOrderPlaced, self.side, self.targetReach)
                     log(f"{t} ============ {symbol} SHORT =============== on: {price}, SL: {price + ch}")
                     self.side = "SHORT"
@@ -384,28 +389,22 @@ class TradingBot:
                     # ENTRY("SHORT")
                     asyncio.run(ENTRY("SHORT"))
 
-                    if inSL_long:
-                        state['SL'] = [elem for elem in SL if symbol not in elem]
-                        self.store.setState('scalp', state, 'short trade enables long trade')
-                        inSL_long = False
-
-
+                
 
             # index_match_l = i + 1 < n and src[i + 1] > bot
-            index_match_l = True
-            if price < bot and index_match_l and end and not self.isOrderPlaced:   
+            if price < bot and end and not self.isOrderPlaced:   
             # if src[i] < nwe[i] - sae and end2:
-                anySL_long = any('LONG' == item['type'] for item in state['SL'])
-                freeze = anySL_long and symbol not in no_btc_dependent
-                on_break = price < ll
+                # anySL_long = any('LONG' == item['type'] for item in state['SL'])
+                # freeze = anySL_long and symbol not in no_btc_dependent
+                on_break = price < ll or price > hh
 
-                if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
-                if inSL_long: print("Trade ignored coz of last SL")
-                if on_break: print("Trade ignored coz breakout")
+                # if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
+                # if inSL_long: print("Trade ignored coz of last SL")
+                if on_break: print("LONG trade ignored coz breakout")
 
 
                 print(f"\n\n\n\n\n", datetime.now().strftime('%H:%M'), f"▲ at {t} (close: {price}) {i} n{n-1}")
-                if self.side != "LONG" and not inSL_long and not freeze and not on_break:
+                if self.side != "LONG" and not on_break:
                     # print(self.isOrderPlaced, self.side, self.targetReach)
                     log(f"{t} ============ {symbol} LONG =============== on: {price}, SL: {price - ch}" )
                     self.side = "LONG"
@@ -417,19 +416,14 @@ class TradingBot:
 
                     asyncio.run(ENTRY("LONG"))
 
-                    if inSL_short:
-                        state['SL'] = [elem for elem in SL if symbol not in elem]
-                        self.store.setState('scalp', state, 'long trade enables short trade')
-                        inSL_short = False
 
-
-        return self.side, candles[-1], targetL, targetS
+        return self.side, candles[-1], targetL, targetS, hh, ll
         # end of analyses
 
 
     # R U N
     def run(self):
-
+        
         # Create exchange instances
         self.users = create_exchange_instances(accounts).items()
 
@@ -439,21 +433,26 @@ class TradingBot:
             abs_num = this_minute/1
             
 
-            if abs_num == round(abs_num):
+            if abs_num == round(abs_num) or True:
 
                 if self.isOrderPlaced:
-                    side, candle, targetL, targetS = self.analyse(self.active_pair)
-                    print(f"{datetime.today().strftime('%H:%M')}  min-target: {(targetS if side == 'SHORT' else targetL):.4f}") 
+                    side, candle, targetL, targetS, hh, ll = self.analyse(self.active_pair)
+                    print(f"{datetime.today().strftime('%H:%M')}  min-target: {(targetS if side == 'SHORT' else targetL):.4f}, HH: {hh}, LL: {ll}") 
+                    time.sleep(20)  # 5min ,Run every 15 minutes
+
 
                 else:
                     for symbol in symbols:
                         if self.isOrderPlaced:
                             break;
                         self.analyse(symbol)
-                        print(f"{datetime.today().strftime('%H:%M')} {symbol}", end='\r', flush=True)
-                        time.sleep(2) 
+                        # print(f"{datetime.today().strftime('%H:%M')} {symbol}", end='\r', flush=True)
+                        print(f"{datetime.today().strftime('%H:%M')} {symbol}")
+                        # time.sleep(2) 
+                        time.sleep(20) # single coin 
+
                 
-                time.sleep(60)  # 5min ,Run every 15 minutes
+                # time.sleep(60)  # 5min ,Run every 15 minutes
             
             
 

@@ -454,3 +454,8 @@ None
 2024-12-10 18:35:07,106 - INFO - 18:35 MIN TARGET EXIT LONG 280.55 2.15% 2.66 0.64
 2024-12-10 18:35:07,695 - INFO - LONG closed successfully for account amir:
 None
+2024-12-10 19:18:16,864 - INFO - 19:15 ============ AAVE/USDT SHORT =============== on: 285.06, SL: 288.46589324282553
+2024-12-10 19:18:17,578 - INFO - Insufficient balance. Available: 0.0 USDT, Required: 200 USDT
+2024-12-10 19:18:17,578 - INFO - SHORT order placed for account amir:
+None
+2024-12-10 19:25:23,134 - INFO - trailing...
