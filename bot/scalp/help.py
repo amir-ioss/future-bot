@@ -45,7 +45,8 @@ def timestamp_to_HHMM(timestamp_ms):
 def perc_diff(a, b):
     if a == b:
         return 0  # No difference if the numbers are the same
-    return abs(a - b) / ((a + b) / 2) * 100
+    # return abs(a - b) / ((a + b) / 2) * 100
+    return (a - b) / ((a + b) / 2) * 100
 
 
 

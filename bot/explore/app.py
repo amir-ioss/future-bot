@@ -24,6 +24,9 @@ exchange = ccxt.binance(
 # Switch to Testnet
 # exchange.set_sandbox_mode(True)
 
+def non_num(value, default=0):
+    return default if value is None else float(value)
+
 def fetch_ohlcv(symbol="BTC/USDT", timeframe="1m", limit=10):
     ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
     # Unpack OHLCV data
@@ -42,16 +45,13 @@ def fetch_ohlcv(symbol="BTC/USDT", timeframe="1m", limit=10):
 
 
 inputs = {
-    "0": "1000",
-    "1": "np.logical_and(output['-1'], output['-1'])",
-    "2": "fetch_ohlcv('BTC/USDT', '15m', output['0'])",
-    "3": "talib.SMA(output['2']['open'],20)",
-    "4": "talib.EMA(output['2']['open'],100)",
-    "5": "talib.MACD(output['2']['open'],12,26,9) -> ['macd_line','signal_line','macd_histogram']",
-    "6": "[output['3'][i] < output['4'][i] for i in range(min(len(output['3']), len(output['4'])))]",
-    "7": "[output['5']['macd_line'][i] > output['5']['signal_line'][i] for i in range(len(output['5']['macd_line']))]",
-    "8": "paper_trading(output['6'], output['2'], starting_balance=10, position_size=1, fee=0.01)"
+    "0": "fetch_ohlcv('BTC/USDT', '1m', 300)",
+    "1": "paper_trading(paper_trading_node, output['0'], starting_balance=10, position_size=1, fee=0.01)",
+    "2": "np.array([non_num(output['0']['open'][i]) > non_num(output['0']['low'][i]) for i in range(len(output['0']['open']))])",
+    "3": "np.array([non_num(output['0']['high'][i]) < non_num(output['0']['close'][i]) for i in range(len(output['0']['high']))])",
+    "4": "np.logical_and(output['2'], output['3'])"
 }
+
 # # Initialize the output dictionary
 ohlcv = None
 output = {}
@@ -67,6 +67,7 @@ def resolve_dependencies(queries):
             try:
                 if "paper_trading" in formula: 
                     del inputs[key]
+                    output[key] = 'paper_trading'
                     continue
                 if "-1" in formula: 
                     del inputs[key]
@@ -329,12 +330,28 @@ async def receive_data(dynamic_data: DynamicData):
 
     return response
 
+_inputs = {
+    "0": "fetch_ohlcv('BTC/USDT', '1m', 10)",
+    "1":"talib.WCLPRICE(output['0']['high'], output['0']['low'], output['0']['close'])"
+    # "2": "np.array([non_num(output['0']['open'][i]) > non_num(output['0']['low'][i]) for i in range(len(output['0']['open']))])",
+    # "4": "np.logical_and(output['2'], output['3'])",
+    # "5": "talib.SAM(output['0']['open'])"
+}
 
+# res = process(_inputs)
+# res = resolve_dependencies(_inputs)
+# print(res['1'])
 
+# def test():
+#     output = {
+#         '0': {'close': [None, 5, 6]},
+#         '1': '1.1'
+#     }
 
+#     result = [non_num(output['0']['close'][i]) * non_num(output['1']) for i in range(len(output['0']['close']))]
+#     print(result)
 
-# res = process(inputs)
-# print(res)
+# test()
 
 
 

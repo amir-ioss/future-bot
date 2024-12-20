@@ -6,11 +6,11 @@ app = Flask(__name__)
 # look
 
 # Paths to your log files
-# scalp_log = '/home/ioss/Documents/Learn/future-bot/bot/scalp/log.txt'
-# scalp_terminal = '/home/ioss/Documents/Learn/future-bot/bot/log.log'
+scalp_log = '/home/ioss/Documents/Learn/future-bot/bot/scalp/log.txt'
+scalp_terminal = '/home/ioss/Documents/Learn/future-bot/bot/log.log'
 
-scalp_log = '/home/ec2-user/bot/scalp/log.txt'
-scalp_terminal = '/home/ec2-user/bot/scalp/nohup.log'
+# scalp_log = '/home/ec2-user/bot/scalp/log.txt'
+# scalp_terminal = '/home/ec2-user/bot/scalp/nohup.log'
 
 
 # swing_log = '/home/ec2-user/swing/log.txt'
@@ -254,7 +254,7 @@ def index():
               if (_.includes(`EXIT SL`))
                 cls.push(`text-pink-600 bg-[#db277730]`);
               if (_.includes(`EXIT TRAILING`))
-                cls.push(`text-orange-600 bg-[#db277730]`);
+                cls.push(`text-green-600 bg-[#db277730]`);
               if (_.includes(`MIN TARGET`))
                 cls.push(`text-emerald-400 bg-[#34d39930]`);
               if (_.includes(`EXIT WIN`))
@@ -332,7 +332,7 @@ def index():
             $(`#logDisplay`)
               .append(`<div class="items-center text-gray-300 bg-gradient-to-t ${
               isLoss
-                ? (pos.type == `LONG` ? pos.high : pos.low) > 1 ? `from-[#ffec2140] border-green-900`: `from-[#c4004b20] border-red-900`
+                ? `from-[#c4004b20] border-red-900`
                 : `from-[#00c45240] border-green-900`
             } to-transparrnt p-3 rounded-lg border ">
             <h1 class="text-2xl">
