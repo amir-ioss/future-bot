@@ -77,12 +77,13 @@ def resolve_dependencies(queries):
                 # Attempt to evaluate the formula
                 if "->" in formula:
                     expression, keys_str = formula.split("->")
-                    # print("Expression:", expression.strip())
-                    # print("Keys:", keys_str.strip())
+                    print("Expression:", expression.strip())
+                    print("Keys:", keys_str.strip())
 
                     out = {}
                     keys = eval(keys_str.strip())  # Evaluate keys part
                     res = eval(expression.strip())
+                    print(res)
                     for i, key_name in enumerate(keys):
                         out[key_name] = res[i]
 
@@ -101,7 +102,7 @@ def resolve_dependencies(queries):
             except KeyError:
                 # Skip if dependencies are not resolved yet
                 pass
-
+                
     return output
 
 

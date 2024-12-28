@@ -45,8 +45,8 @@ symbols = [
         ]
 
 
-no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
-# no_btc_dependent = []
+# no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
+no_btc_dependent = []
 
 
 # BOT 

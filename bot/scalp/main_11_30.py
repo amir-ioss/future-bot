@@ -247,10 +247,12 @@ class TradingBot:
                     self.super_low = low_change if low_change > self.super_low else self.super_low 
 
                 # TRAILING
-                if self.trailing and cur_change < self.super_high/2:
-                    log(f"{t} EXIT TRAILING {price} {self.super_high/2:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
+                if self.trailing and cur_change < 1:
+                    log(f"{t} EXIT TRAILING {price} {.9:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.super_tp, self.super_sl  = cur_change, cur_change
+                    self.trailing = False
                     pass
 
                 if cur_change > 1 and not self.trailing: 
@@ -264,6 +266,8 @@ class TradingBot:
                         log(f"{t} EXIT WIN {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                         asyncio.run(EXIT())
                         self.isOrderPlaced = False
+                        self.super_tp, self.super_sl  = cur_change, cur_change
+                        self.trailing = False
                     pass
 
                 # STOP LOSS
@@ -271,6 +275,8 @@ class TradingBot:
                     log(f"{t} EXIT SL {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.super_tp, self.super_sl  = cur_change, cur_change
+                    self.trailing = False
                     SL.append({symbol: candles[i][0], 'type': "SHORT"})
                     self.store.setState('scalp', {'SL':SL}, 'SL freezed short')
                     pass
@@ -281,6 +287,8 @@ class TradingBot:
                     log(f"{t} MIN TARGET EXIT SHORT {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.super_tp, self.super_sl  = cur_change, cur_change
+                    self.trailing = False
 
 
         
@@ -297,10 +305,12 @@ class TradingBot:
 
 
                 # TRAILING
-                if self.trailing and cur_change < self.super_high/2:
-                    log(f"{t} EXIT TRAILING {price} {self.super_high/2:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
+                if self.trailing and cur_change < 1:
+                    log(f"{t} EXIT TRAILING {price} {1:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.super_tp, self.super_sl  = cur_change, cur_change
+                    self.trailing = False
                     pass
 
                 if cur_change > 1 and not self.trailing: 
@@ -314,6 +324,8 @@ class TradingBot:
                         log(f"{t} EXIT WIN {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                         asyncio.run(EXIT())
                         self.isOrderPlaced = False
+                        self.super_tp, self.super_sl  = cur_change, cur_change
+                        self.trailing = False
                     pass
 
                 # STOP LOSS
@@ -321,6 +333,8 @@ class TradingBot:
                     log(f"{t} EXIT SL {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.super_tp, self.super_sl  = cur_change, cur_change
+                    self.trailing = False
                     SL.append({symbol: candles[i][0], 'type': "LONG"})
                     self.store.setState('scalp', {'SL':SL}, 'SL freezed long')
                     pass
@@ -331,6 +345,8 @@ class TradingBot:
                     log(f"{t} MIN TARGET EXIT LONG {price} {cur_change:.2f}% {self.super_high:.2f} {self.super_low:.2f}")
                     asyncio.run(EXIT())
                     self.isOrderPlaced = False
+                    self.super_tp, self.super_sl  = cur_change, cur_change
+                    self.trailing = False
 
 
             # if(t == datetime.now().strftime('%H:%M')):
