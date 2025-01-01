@@ -8,7 +8,7 @@ import pandas as pd
 import json
 import talib
 import ccxt
-
+from paper import paper_trading
 
 
 
@@ -83,7 +83,7 @@ def resolve_dependencies(queries):
                     out = {}
                     keys = eval(keys_str.strip())  # Evaluate keys part
                     res = eval(expression.strip())
-                    print(res)
+                    # print(res)
                     for i, key_name in enumerate(keys):
                         out[key_name] = res[i]
 
@@ -96,7 +96,7 @@ def resolve_dependencies(queries):
                  
                 del inputs[key]  # Remove resolved item
                 print('\n\n\n\n\n==================================')
-                print(key, formula)
+                # print(key, formula)
                 # print(output[key])
                 break
             except KeyError:
@@ -109,107 +109,6 @@ def resolve_dependencies(queries):
 # Resolve all inputs
 # resolve_dependencies(inputs)
 # print("---", output['2'])
-
-
-def paper_trading(signals, ohlcv, starting_balance=10000, position_size=0.1, fee=0.001):
-    # 0.1000% fee
-
-    """
-    Simulates paper trading based on a boolean array of signals with switching between long and short positions.
-
-    Args:
-        signals (list or np.ndarray): Boolean array where True indicates a buy signal, False indicates a sell/short signal.
-        ohlcv (dict): Dictionary with keys 'open', 'time', etc., corresponding to OHLCV data.
-        starting_balance (float): Initial account balance (default: 10,000).
-        position_size (float): Percentage of balance to use per trade (default: 10%).
-
-    Returns:
-        dict: Contains final balance and executed trades.
-    """
-    if len(signals) != len(ohlcv['open']):
-        raise ValueError("Length of signals and OHLCV data must match.")
-    
-    # Initialize variables
-    balance = starting_balance
-    position = None  # Tracks active position (dictionary for long/short)
-    trades = []  # Tracks executed trades
-    current_position = None  # "long" or "short"
-
-    for i in range(len(signals)):
-        price = ohlcv['open'][i]
-        signal = signals[i]
-        time = ohlcv['time'][i]
-
-        # Process signal only when there's a switch
-        if signal and current_position != "long":  # Switch to long
-            if current_position == "short":  # Close short position
-                entry_fee = position['quantity'] * position['entry_price'] * fee
-                exit_fee = position['quantity'] * price * fee
-                pnl_with_fee = (position['entry_price'] - price) * position['quantity'] - entry_fee - exit_fee
-                balance += pnl_with_fee
-                position['exit_price'] = price
-                position['exit_time'] = time
-                position['pnl'] = pnl_with_fee
-                trades.append(position)
-                position = None
-
-            # Open long position
-            trade_amount = balance * position_size
-            quantity = trade_amount / price
-            position = {
-                "type": "long",
-                "entry_price": price,
-                "quantity": quantity,
-                "entry_time": time,
-                "trade_amount": trade_amount
-            }
-            current_position = "long"
-
-        elif not signal and current_position != "short":  # Switch to short
-            if current_position == "long":  # Close long position
-                entry_fee = position['quantity'] * position['entry_price'] * fee
-                exit_fee = position['quantity'] * price * fee
-                pnl_with_fee = (price - position['entry_price']) * position['quantity'] - entry_fee - exit_fee
-                balance += pnl_with_fee
-                position['exit_price'] = price
-                position['exit_time'] = time
-                position['pnl'] = pnl_with_fee
-                trades.append(position)
-                position = None
-
-
-            # Open short position
-            trade_amount = balance * position_size
-            quantity = trade_amount / price
-            position = {
-                "type": "short",
-                "entry_price": price,
-                "quantity": quantity,
-                "entry_time": time,
-                "trade_amount": trade_amount
-            }
-            current_position = "short"
-
-    # Close remaining positions at the end of the loop
-    if position:
-        final_price = ohlcv['open'][-1]
-        final_time = ohlcv['time'][-1]
-        if current_position == "long":
-            pnl = position['quantity'] * (final_price - position['entry_price'])
-            balance += pnl
-        elif current_position == "short":
-            pnl = position['quantity'] * (position['entry_price'] - final_price)
-            balance += pnl
-
-        position['exit_price'] = final_price
-        position['exit_time'] = final_time
-        position['pnl'] = pnl
-        trades.append(position)
-
-    return {
-        "final_balance": balance,
-        "trades": trades
-    }
 
 
 # ohlcv = output['0']
@@ -257,7 +156,6 @@ app.add_middleware(
 class DynamicData(BaseModel):
     data: Dict[str, str]
 
-
 def make_serializable(obj):
     """Convert non-serializable types to JSON serializable, including handling NaN, Inf, -Inf, and ndarray."""
     if isinstance(obj, dict):
@@ -297,6 +195,7 @@ def process(query):
     
     if 'paper_trading' in last:
         # result = paper_trading(output['3'], output['1'], starting_balance=10, position_size=1, fee=0.001)
+        print("last", last)
         result = eval(last)
         # print(result)
 
@@ -331,30 +230,25 @@ async def receive_data(dynamic_data: DynamicData):
 
     return response
 
-_inputs = {
-    "0": "fetch_ohlcv('BTC/USDT', '1m', 10)",
-    "1":"talib.WCLPRICE(output['0']['high'], output['0']['low'], output['0']['close'])"
-    # "2": "np.array([non_num(output['0']['open'][i]) > non_num(output['0']['low'][i]) for i in range(len(output['0']['open']))])",
-    # "4": "np.logical_and(output['2'], output['3'])",
-    # "5": "talib.SAM(output['0']['open'])"
-}
+# _inputs = {
+#     "0": "fetch_ohlcv('BTC/USDT', '5m', 500)",
+#     "1": "talib.MACD(output['0']['low'],12,26,9) -> ['macd','macdsignal','macdhist']",
+#     "2": "np.array([non_num(output['1']['macd'][i]) > non_num(output['1']['macdsignal'][i]) for i in range(len(output['1']['macd']))])",
+#     "3": "np.array([non_num(output['1']['macd'][i]) < non_num(output['1']['macdsignal'][i]) for i in range(len(output['1']['macd']))])",
+#     "4": "paper_trading(output['2']['macd'], output['3']['macd'], None, None, ohlcv=output['0'], starting_balance=10, position_size=1, fee=0.01)"
+# }
 
 # res = process(_inputs)
-# res = resolve_dependencies(_inputs)
-# print(res['1'])
+# output_ = resolve_dependencies(_inputs)
+# print("----------", res)
 
-# def test():
-#     output = {
-#         '0': {'close': [None, 5, 6]},
-#         '1': '1.1'
-#     }
-
-#     result = [non_num(output['0']['close'][i]) * non_num(output['1']) for i in range(len(output['0']['close']))]
-#     print(result)
-
-# test()
+# paper_trading(output['2'], output['3'], None, None, ohlcv=output['0'], starting_balance=1000, position_size=0.1, fee=0.001)
 
 
+# print(res)
+# serializable_obj = make_serializable(res)
+
+# print(serializable_obj['1'])
 
 
 # uvicorn app:app --reload
