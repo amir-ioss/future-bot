@@ -9,6 +9,9 @@ import json
 import talib
 import ccxt
 from paper import paper_trading
+from order_block import find_order_blocks,find_order_blocks2
+from support_resistance import support_resistance, support_resistance_levels
+from luxalgo_support_resistance import luxalgo_support_resistance
 
 
 
@@ -83,11 +86,11 @@ def resolve_dependencies(queries):
                     out = {}
                     keys = eval(keys_str.strip())  # Evaluate keys part
                     res = eval(expression.strip())
-                    # print(res)
                     for i, key_name in enumerate(keys):
                         out[key_name] = res[i]
 
                     output[key] = out
+                    print("||||||||||||", out)
                 else:
                     output[key] = eval(formula)
 
@@ -211,11 +214,22 @@ def process(query):
     return response
 
 
+_inputs = {
+    "0": "fetch_ohlcv('BTC/USDT', '5m', 500)",
+    # "1": "support_resistance(output['0']) -> ['supports', 'resists']",
+    # "1": "support_resistance_levels(output['0']) -> ['support1', 'support2', 'support3', 'resists1', 'resists2', 'resists3']",
+    "1": "luxalgo_support_resistance(output['0']) -> ['low_pivot', 'high_pivot']",
+
+    # "1": "support_resistance(output['0'])",
+    # "1": "find_order_blocks2(output['0']['close'],output['0']['volume'])",
+}
+
 @app.post("/process/")
 async def receive_data(dynamic_data: DynamicData):
    
     try:
        response = process(dynamic_data.data)
+    #    response = process(_inputs)
 
     except KeyError as e:
         # Handle missing keys or invalid access in `data`
@@ -230,17 +244,11 @@ async def receive_data(dynamic_data: DynamicData):
 
     return response
 
-# _inputs = {
-#     "0": "fetch_ohlcv('BTC/USDT', '5m', 500)",
-#     "1": "talib.MACD(output['0']['low'],12,26,9) -> ['macd','macdsignal','macdhist']",
-#     "2": "np.array([non_num(output['1']['macd'][i]) > non_num(output['1']['macdsignal'][i]) for i in range(len(output['1']['macd']))])",
-#     "3": "np.array([non_num(output['1']['macd'][i]) < non_num(output['1']['macdsignal'][i]) for i in range(len(output['1']['macd']))])",
-#     "4": "paper_trading(output['2']['macd'], output['3']['macd'], None, None, ohlcv=output['0'], starting_balance=10, position_size=1, fee=0.01)"
-# }
+
 
 # res = process(_inputs)
 # output_ = resolve_dependencies(_inputs)
-# print("----------", res)
+# print("----------", output_['1'])
 
 # paper_trading(output['2'], output['3'], None, None, ohlcv=output['0'], starting_balance=1000, position_size=0.1, fee=0.001)
 
