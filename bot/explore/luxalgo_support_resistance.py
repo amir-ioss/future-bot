@@ -162,5 +162,5 @@ def luxalgo_support_resistance(ohlcv, left_bars=15, right_bars=15, volume_thresh
     print(f"Number of support levels found: {np.count_nonzero(low_pivot)}")
     print(f"Number of resistance levels found: {np.count_nonzero(high_pivot)}")
 
-    return low_pivot, high_pivot
+    return low_pivot, high_pivot, breaks, wick_breaks, osc
     return result

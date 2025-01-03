@@ -216,12 +216,8 @@ def process(query):
 
 _inputs = {
     "0": "fetch_ohlcv('BTC/USDT', '5m', 500)",
-    # "1": "support_resistance(output['0']) -> ['supports', 'resists']",
-    # "1": "support_resistance_levels(output['0']) -> ['support1', 'support2', 'support3', 'resists1', 'resists2', 'resists3']",
-    "1": "luxalgo_support_resistance(output['0']) -> ['low_pivot', 'high_pivot']",
-
-    # "1": "support_resistance(output['0'])",
-    # "1": "find_order_blocks2(output['0']['close'],output['0']['volume'])",
+    "1": "np.multiply(output['0']['high'],1.1)",
+    "2": "talib.SMA(output['1'],30)"
 }
 
 @app.post("/process/")
@@ -248,7 +244,7 @@ async def receive_data(dynamic_data: DynamicData):
 
 # res = process(_inputs)
 # output_ = resolve_dependencies(_inputs)
-# print("----------", output_['1'])
+# print("----------", output_['2'])
 
 # paper_trading(output['2'], output['3'], None, None, ohlcv=output['0'], starting_balance=1000, position_size=0.1, fee=0.001)
 
