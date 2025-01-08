@@ -10,9 +10,9 @@ from datetime import datetime
 import json
 import math
 import asyncio
+from luxalgo_support_resistance import luxalgo_support_resistance
 
-
-from config import accounts, symbols, timeframe, leverage, amount_usdt, no_btc_dependent
+from config import accounts, symbols, timeframe, leverage, amount_usdt, no_btc_dependent,support_resist_bar_width
 from order import long, short, close_position, check_balance, create_exchange_instances
 from help import log, timestamp_to_HHMM, trigger_notification, perc_diff
 
@@ -100,18 +100,32 @@ class TradingBot:
         # self.lows = [candle[3] for candle in candles]
         closes = [candle[4] for candle in candles]
 
-        hh = max(closes[-50:])
-        ll = min(closes[-50:])
+        # hh = max(closes[-50:])
+        # ll = min(closes[-50:])
         state = self.store.getState('scalp')
         SL = state['SL']
 
-
-
+        def candles_obj():
+            time, open_, high, low, close, volume = zip(*candles)
+            return {
+                "time": time,
+                "open": open_,
+                "high": high,
+                "low": low,
+                "close": close,
+                "volume": volume,
+            }
+        
+        
+        # Support & Resist
+        low_pivot, high_pivot, breaks, wick_breaks, osc = luxalgo_support_resistance(candles_obj(), left_bars=support_resist_bar_width, right_bars=support_resist_bar_width)
+        resist = high_pivot[-1]
+        support = low_pivot[-1]
 
 
         # Input parameters
         h = 8.0
-        mult = 3 #3.0
+        mult = 3 #3.0 #remove
         src = closes
         n = len(src)
 
@@ -252,20 +266,12 @@ class TradingBot:
                     self.super_sl = max(cur_change, self.super_sl)
                     print("on_short_sl", self.super_sl)
 
-                def reset():
-                    return
-                    self.isOrderPlaced = False
-                    self.super_tp, self.super_sl  = 0,0
-                    self.trailing = False
-                    self.targetReach = False
-                    self.active_pair = None
-
+      
                 # TRAILING
                 if self.trailing and cur_change < 1 and self.isOrderPlaced:
                     log(f"{t} EXIT TRAILING {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     # log(f"{t} EXIT TRAILING {price} {self.super_sl/2:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     asyncio.run(EXIT())
-                    reset()
                     pass
 
                 if cur_change > 1 and not self.trailing:
@@ -280,14 +286,12 @@ class TradingBot:
                     if isBullish:
                         log(f"{t} EXIT WIN {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                         asyncio.run(EXIT())
-                        reset()
                     pass
 
                 # STOP LOSS
                 if price > sl:
                     log(f"{t} EXIT SL {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     asyncio.run(EXIT())
-                    reset()
                     SL.append({symbol: candles[i][0], 'type': "SHORT"})
                     self.store.setState('scalp', {'SL':SL}, 'SL freezed short')
                     pass
@@ -297,7 +301,6 @@ class TradingBot:
                 if self.targetReach and price > targetS and self.isOrderPlaced:
                     log(f"{t} MIN TARGET EXIT SHORT {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     asyncio.run(EXIT())
-                    reset()
 
 
             if self.side == "LONG" and end and self.isOrderPlaced:
@@ -317,21 +320,11 @@ class TradingBot:
                     print("on_long_sl", self.super_sl)
 
 
-                def reset():
-                    return
-                    self.isOrderPlaced = False
-                    self.super_tp, self.super_sl  = 0,0
-                    self.trailing = False
-                    self.targetReach = False
-                    self.active_pair = None
-
-
                 # TRAILING
                 if self.trailing and cur_change < 1 and self.isOrderPlaced:
                     # log(f"{t} EXIT TRAILING {price} {self.super_tp/2:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     log(f"{t} EXIT TRAILING {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     asyncio.run(EXIT())
-                    reset()
                     pass
 
                 if cur_change > 1 and not self.trailing:
@@ -345,7 +338,6 @@ class TradingBot:
                     if not isBullish:
                         log(f"{t} EXIT WIN {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                         asyncio.run(EXIT())
-                        reset()
 
                     pass
 
@@ -353,7 +345,6 @@ class TradingBot:
                 if price < sl:
                     log(f"{t} EXIT SL {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     asyncio.run(EXIT())
-                    reset()
                     SL.append({symbol: candles[i][0], 'type': "LONG"})
                     self.store.setState('scalp', {'SL':SL}, 'SL freezed long')
                     pass
@@ -363,7 +354,6 @@ class TradingBot:
                 if self.targetReach and price < targetL and self.isOrderPlaced:
                     log(f"{t} MIN TARGET EXIT LONG {price} {cur_change:.2f}% {self.super_tp:.2f} {self.super_sl:.2f}")
                     asyncio.run(EXIT())
-                    reset()
 
 
 
@@ -375,7 +365,7 @@ class TradingBot:
 
             inSL_short, timePassed_short = checkInSL(state['SL'], symbol, 'SHORT')
             # remove from SL
-            if inSL_short and price > hh and timePassed_short:
+            if inSL_short and timePassed_short:
                 state['SL'] = [elem for elem in SL if symbol not in elem]
                 self.store.setState('scalp', state, 'hh reach - enabled both trade')
                 inSL_short = False
@@ -385,7 +375,7 @@ class TradingBot:
 
             inSL_long, timePassed_long = checkInSL(state['SL'], symbol, 'LONG')
             # remove from SL
-            if price < ll and inSL_long and timePassed_long:
+            if inSL_long and timePassed_long:
                 state['SL'] = [elem for elem in SL if symbol not in elem]
                 self.store.setState('scalp', state, 'll reach - enabled both trade')
                 inSL_long = False
@@ -398,10 +388,10 @@ class TradingBot:
             if price > top and index_match_s and end and not self.isOrderPlaced:
                 anySL_short = any('SHORT' == item['type'] for item in state['SL'])
                 freeze = anySL_short and symbol not in no_btc_dependent
-                on_break = price > hh
+                on_break = price > resist
                 if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
                 if inSL_short: print("Trade ignored coz of last SL")
-                if on_break: print("Trade ignored coz breakout")
+                if on_break: print("Trade ignored coz bullish breakout")
 
             # if src[i] > nwe[i] + sae and end2:
                 print(f"\n\n\n\n\n",datetime.now().strftime('%H:%M'), f"▼ at {t} (close: {price}) {i} n-{n-1}")
@@ -430,11 +420,11 @@ class TradingBot:
             # if src[i] < nwe[i] - sae and end2:
                 anySL_long = any('LONG' == item['type'] for item in state['SL'])
                 freeze = anySL_long and symbol not in no_btc_dependent
-                on_break = price < ll
+                on_break = price < support
 
                 if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
                 if inSL_long: print("Trade ignored coz of last SL")
-                if on_break: print("Trade ignored coz breakout")
+                if on_break: print("Trade ignored coz bearish breakout")
 
 
                 print(f"\n\n\n\n\n", datetime.now().strftime('%H:%M'), f"▲ at {t} (close: {price}) {i} n{n-1}")

@@ -26,31 +26,30 @@ accounts = [
     # }
 ]
 
-# symbols = ['SOL/USDT']
+symbols = ['BNB/USDT']
 
-symbols = [
-           'ETH/USDT',
-           'BNB/USDT',
-           'LTC/USDT',
-           'SOL/USDT',
-           'XRP/USDT',
-           'ADA/USDT',
-           'DASH/USDT',
-           'DOT/USDT',
-           'FTM/USDT',
-           'NEAR/USDT',
-           'AAVE/USDT',
-           'GALA/USDT',
-           'FET/USDT',
-        ]
+# symbols = [
+#            'ETH/USDT',
+#            'BNB/USDT',
+#            'LTC/USDT',
+#            'SOL/USDT',
+#            'XRP/USDT',
+#            'ADA/USDT',
+#            'DASH/USDT',
+#            'DOT/USDT',
+#            'FTM/USDT',
+#            'NEAR/USDT',
+#            'AAVE/USDT',
+#            'GALA/USDT',
+#            'FET/USDT',
+#         ]
 
 
 # no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
 no_btc_dependent = []
 
-
 # BOT 
 bot_name = "Scalping Bot"
 notify = True # False for server run 
 
-period = 10
+support_resist_bar_width = 50
