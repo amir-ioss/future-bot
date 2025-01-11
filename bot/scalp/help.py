@@ -1,6 +1,7 @@
 from datetime import datetime
 import config
 import logging
+import pytz
 
 
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -48,7 +49,29 @@ def perc_diff(a, b):
     return abs(a - b) / ((a + b) / 2) * 100
 
 
+def perc_diff_not_abs(a, b):
+    if a == b:
+        return 0  # No difference if the numbers are the same
+    return (b - a) / ((a + b) / 2) * 100
 
+
+def convert_binance_ohlcv_last_time_to_local(timestamp_ms, local_tz_name="Asia/Kolkata"):
+    """
+    Converts a Binance OHLCV timestamp to local time for the last entry.
+    
+    :param timestamp_ms: The timestamp in milliseconds from the last OHLCV entry.
+    :param local_tz_name: The local time zone name (e.g., "Asia/Kolkata").
+    :return: The timestamp converted to the local time zone.
+    """
+    utc_tz = pytz.utc
+    local_tz = pytz.timezone(local_tz_name)
+    
+    # Convert to UTC datetime
+    utc_time = datetime.utcfromtimestamp(timestamp_ms / 1000).replace(tzinfo=utc_tz)
+    # Convert to local time
+    local_time = utc_time.astimezone(local_tz).strftime('%Y-%m-%d %H:%M:%S')
+    
+    return local_time
 
 
 

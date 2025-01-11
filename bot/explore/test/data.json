@@ -1,0 +1,687 @@
+{
+  "abs": {
+    "Name": "Abs",
+    "Description": "Returns the absolute value of each element.",
+    "Type": "Math Function",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Get the absolute values of elements in the array.",
+      "Code": "np.abs([-1, -2, 3])",
+      "Result": "[1, 2, 3]"
+    }
+  },
+  "mean": {
+    "Name": "Average",
+    "Description": "Returns the mean (average) value of the array.",
+    "Type": "Math Function",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Calculate the average of elements in the array.",
+      "Code": "np.mean([1, 2, 3, 4, 5])",
+      "Result": "3.0"
+    }
+  },
+  "binary_search": {
+    "Name": "Binary Search",
+    "Description": "Find the index of a value in a sorted array using binary search.",
+    "Type": "Search Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "value", "type": "number", "target": true },
+      { "name": "side", "type": "string", "target": false, "default": "left" }
+    ],
+    "Outputs": [{ "name": "index", "type": "integer", "source": true }],
+    "Example": {
+      "Explanation": "Find the index of 3 in a sorted array.",
+      "Code": "binary_search(np.array([1, 2, 3, 4, 5]), 3, side='left')",
+      "Result": "2"
+    },
+    "Function": "def binary_search(array, value, side='left'): return np.searchsorted(array, value, side=side)"
+  },
+  "concatenate": {
+    "Name": "Concat",
+    "Description": "Concatenates two or more arrays.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array1", "type": "numpy array", "target": true },
+      { "name": "array2", "type": "numpy array", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Concatenate two arrays.",
+      "Code": "np.concatenate([np.array([1, 2]), np.array([3, 4])])",
+      "Result": "[1, 2, 3, 4]"
+    }
+  },
+  "copy": {
+    "Name": "Copy",
+    "Description": "Returns a new array that is a copy of the original.",
+    "Type": "Array Function",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Create a copy of the array.",
+      "Code": "np.copy([1, 2, 3])",
+      "Result": "[1, 2, 3]"
+    }
+  },
+  "cov": {
+    "Name": "Covariance",
+    "Description": "Compute the covariance of two arrays.",
+    "Type": "Math Function",
+    "Inputs": [
+      { "name": "array1", "type": "numpy array", "target": true },
+      { "name": "array2", "type": "numpy array", "target": true }
+    ],
+    "Outputs": [
+      {
+        "name": "cov_0",
+        "value": "cov_0",
+        "type": "number",
+        "source": true
+      },
+      {
+        "name": "cov_1",
+        "value": "cov_1",
+        "type": "number",
+        "source": true
+      }
+    ],
+    "Example": {
+      "Explanation": "Calculate the covariance between two arrays.",
+      "Code": "np.cov([1, 2, 3], [4, 5, 6])[0, 1]",
+      "Result": "1.0"
+    }
+  },
+  "all": {
+    "Name": "Every *",
+    "Description": "Check if all elements in the array satisfy a condition.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "condition", "type": "function", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "boolean", "source": true }],
+    "Example": {
+      "Explanation": "Check if all elements are greater than 0.",
+      "Code": "np.all([1, 2, 3] > 0)",
+      "Result": "True"
+    }
+  },
+  "full": {
+    "Name": "Fill",
+    "Description": "Fill an array with a specific value.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "length", "type": "number", "target": true },
+      { "name": "fill", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Fill an array with the value 7.",
+      "Code": "np.full(5, 7)",
+      "Result": "[7, 7, 7, 7, 7]"
+    }
+  },
+  "array": {
+    "Name": "First *",
+    "Description": "Get the first element of the array.",
+    "Type": "Array Function",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Get the first element of the array.",
+      "Code": "np.array([1, 2, 3])[0]",
+      "Result": "1"
+    }
+  },
+  "fromiter": {
+    "Name": "From*",
+    "Description": "Create a new array from a list or other iterable.",
+    "Type": "Array Function",
+    "Inputs": [{ "name": "iterable", "type": "list or iterable", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Convert a list to a numpy array.",
+      "Code": "np.fromiter([1, 2, 3], dtype=int)",
+      "Result": "[1, 2, 3]"
+    }
+  },
+  "array": {
+    "Name": "Get*",
+    "Description": "Get an element from the array at a specified index.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "index", "type": "integer", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Get the element at index 2.",
+      "Code": "np.array([1, 2, 3])[2]",
+      "Result": "3"
+    }
+  },
+  "isin": {
+    "Name": "Includes",
+    "Description": "Check if a value is present in the array.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "value", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "boolean", "source": true }],
+    "Example": {
+      "Explanation": "Check if the number 2 is in the array.",
+      "Code": "np.isin(2, [1, 2, 3])",
+      "Result": "True"
+    }
+  },
+  "where": {
+    "Name": "Index Of *",
+    "Description": "Find the index of a specific value in the array.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "value", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "integer", "source": true }],
+    "Example": {
+      "Explanation": "Find the index of 3 in the array.",
+      "Code": "np.where(np.array([1, 2, 3, 4]) == 3)[0][0]",
+      "Result": "2"
+    }
+  },
+  "insert": {
+    "Name": "Insert",
+    "Description": "Insert a value into the array at a specific index.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "index", "type": "integer", "target": true },
+      { "name": "value", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Insert the value 10 at index 2.",
+      "Code": "np.insert([1, 2, 3, 4], 2, 10)",
+      "Result": "[1, 2, 10, 3, 4]"
+    }
+  },
+  "join": {
+    "Name": "Join",
+    "Description": "Join the elements of an array into a single string, separated by a specific delimiter.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "delimiter", "type": "string", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "string", "source": true }],
+    "Example": {
+      "Explanation": "Join the elements with a comma.",
+      "Code": "np.join(map(str, [1, 2, 3]))",
+      "Result": "1,2,3"
+    }
+  },
+  "last": {
+    "Name": "Last",
+    "Description": "Get the last element of the array.",
+    "Type": "Array Function",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Get the last element of the array.",
+      "Code": "np.array([1, 2, 3])[-1]",
+      "Result": "3"
+    }
+  },
+  "lastindexof": {
+    "Name": "Last Index Of",
+    "Description": "Find the last index of a specific value in the array.",
+    "Type": "Array Function",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "value", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "integer", "source": true }],
+    "Example": {
+      "Explanation": "Find the last index of 3 in the array.",
+      "Code": "np.where(np.array([1, 2, 3, 3]) == 3)[0][-1]",
+      "Result": "3"
+    }
+  },
+  "max": {
+    "Name": "Max",
+    "Description": "Find the maximum value in the array.",
+    "Type": "Aggregation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Find the maximum value in the array.",
+      "Code": "np.max([1, 2, 3, 4])",
+      "Result": "4"
+    }
+  },
+  "median": {
+    "Name": "Median",
+    "Description": "Find the median value of the array.",
+    "Type": "Aggregation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Find the median value of the array.",
+      "Code": "np.median([1, 2, 3, 4, 5])",
+      "Result": "3.0"
+    }
+  },
+  "min": {
+    "Name": "Min",
+    "Description": "Find the minimum value in the array.",
+    "Type": "Aggregation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Find the minimum value in the array.",
+      "Code": "np.min([1, 2, 3, 4])",
+      "Result": "1"
+    }
+  },
+  "mode": {
+    "Name": "Mode",
+    "Description": "Find the mode (most frequent value) in the array.",
+    "Type": "Aggregation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Find the mode (most frequent value) of the array.",
+      "Code": "from scipy import stats; stats.mode([1, 2, 2, 3, 3, 3])[0][0]",
+      "Result": "3"
+    }
+  },
+  "zeros": {
+    "Name": "New Bool",
+    "Description": "Create a new boolean array.",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Create a boolean array with 5 elements, all initialized to False.",
+      "Code": "np.zeros(5, dtype=bool)",
+      "Result": "[False, False, False, False, False]"
+    }
+  },
+  "new_box": {
+    "Name": "New Box",
+    "Description": "Create a new box (custom data structure).",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "custom box structure", "source": true }],
+    "Example": {
+      "Explanation": "Create a custom box with 3 elements.",
+      "Code": "box = np.empty(3, dtype=object); box.fill('box')",
+      "Result": "['box', 'box', 'box']"
+    }
+  },
+  "new_color": {
+    "Name": "New Color",
+    "Description": "Create a new color array.",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (colors)", "source": true }],
+    "Example": {
+      "Explanation": "Create an array with 3 color values.",
+      "Code": "np.array(['#FF0000', '#00FF00', '#0000FF'])",
+      "Result": "['#FF0000', '#00FF00', '#0000FF']"
+    }
+  },
+  "new_float": {
+    "Name": "New Float",
+    "Description": "Create a new float array.",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (float)", "source": true }],
+    "Example": {
+      "Explanation": "Create a float array with 3 elements initialized to 0.0.",
+      "Code": "np.zeros(3, dtype=float)",
+      "Result": "[0.0, 0.0, 0.0]"
+    }
+  },
+  "new_int": {
+    "Name": "New Int",
+    "Description": "Create a new integer array.",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (int)", "source": true }],
+    "Example": {
+      "Explanation": "Create an integer array with 4 elements initialized to 0.",
+      "Code": "np.zeros(4, dtype=int)",
+      "Result": "[0, 0, 0, 0]"
+    }
+  },
+  "new_label": {
+    "Name": "New Label",
+    "Description": "Create a new label array (for custom labels).",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (labels)", "source": true }],
+    "Example": {
+      "Explanation": "Create a label array with 3 custom labels.",
+      "Code": "np.array(['Label1', 'Label2', 'Label3'])",
+      "Result": "['Label1', 'Label2', 'Label3']"
+    }
+  },
+  "new_line": {
+    "Name": "New Line",
+    "Description": "Create a new line array.",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (line)", "source": true }],
+    "Example": {
+      "Explanation": "Create an array with 2 points representing a line.",
+      "Code": "np.array([[0, 0], [1, 1]])",
+      "Result": "[[0, 0], [1, 1]]"
+    }
+  },
+  "new_linefill": {
+    "Name": "New Linefill",
+    "Description": "Create a new linefill array (used for filling between lines).",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (linefill)", "source": true }],
+    "Example": {
+      "Explanation": "Create an array with a line fill structure for charting.",
+      "Code": "np.array([[0, 0, 0], [1, 1, 1]])",
+      "Result": "[[0, 0, 0], [1, 1, 1]]"
+    }
+  },
+  "new_string": {
+    "Name": "New String",
+    "Description": "Create a new string array.",
+    "Type": "Array Creation",
+    "Inputs": [{ "name": "size", "type": "integer", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array (string)", "source": true }],
+    "Example": {
+      "Explanation": "Create an array with 3 strings.",
+      "Code": "np.array(['Hello', 'World', 'Test'])",
+      "Result": "['Hello', 'World', 'Test']"
+    }
+  },
+  "new_table": {
+    "Name": "New Table",
+    "Description": "Create a new table (2D array).",
+    "Type": "Array Creation",
+    "Inputs": [
+      { "name": "rows", "type": "integer", "target": true },
+      { "name": "columns", "type": "integer", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array (2D)", "source": true }],
+    "Example": {
+      "Explanation": "Create a table (2D array) with 2 rows and 3 columns.",
+      "Code": "np.empty((2, 3))",
+      "Result": "[[nan, nan, nan], [nan, nan, nan]]"
+    }
+  },
+  "percentile": {
+    "Name": "Percentile Linear Interpolation",
+    "Description": "Find the percentile of an array using linear interpolation.",
+    "Type": "Statistical Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "percentile", "type": "float", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Find the 50th percentile of the array using linear interpolation.",
+      "Code": "np.percentile([1, 2, 3, 4, 5], 50, interpolation='linear')",
+      "Result": "3.0"
+    }
+  },
+  "percentile_nearest_rank": {
+    "Name": "Percentile Nearest Rank",
+    "Description": "Find the percentile of an array using nearest rank method.",
+    "Type": "Statistical Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "percentile", "type": "float", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Find the 90th percentile using the nearest rank method.",
+      "Code": "np.percentile([1, 2, 3, 4, 5], 90, interpolation='nearest')",
+      "Result": "5.0"
+    }
+  },
+  "percentrank": {
+    "Name": "Percent Rank",
+    "Description": "Compute the percentile rank of an element in an array.",
+    "Type": "Statistical Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "value", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "float", "source": true }],
+    "Example": {
+      "Explanation": "Calculate the percentile rank of 4 in the array.",
+      "Code": "from scipy import stats; stats.percentileofscore([1, 2, 3, 4, 5], 4)",
+      "Result": "80.0"
+    }
+  },
+  "delete": {
+    "Name": "Pop",
+    "Description": "Remove the last element from the array and return it.",
+    "Type": "Array Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "index", "type": "number", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "element", "source": true }],
+    "Example": {
+      "Explanation": "Remove the last element from the array.",
+      "Code": "np.delete([1, 2, 3], 2)",
+      "Result": "[1, 2]"
+    }
+  },
+  "append": {
+    "Name": "Push",
+    "Description": "Add an element to the end of the array.",
+    "Type": "Array Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "element", "type": "element", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Add an element to the array.",
+      "Code": "np.append([1, 2, 3], 4)",
+      "Result": "[1, 2, 3, 4]"
+    }
+  },
+  "arange": {
+    "Name": "Range",
+    "Description": "Create a range of numbers within a specified interval.",
+    "Type": "Array Creation",
+    "Inputs": [
+      { "name": "start", "type": "integer", "target": true },
+      { "name": "stop", "type": "integer", "target": true },
+      { "name": "step", "type": "integer", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Create a range of numbers from 0 to 10 with step 2.",
+      "Code": "np.arange(0, 10, 2)",
+      "Result": "[0, 2, 4, 6, 8]"
+    }
+  },
+  "reverse": {
+    "Name": "Reverse",
+    "Description": "Reverse the order of elements in the array.",
+    "Type": "Array Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Reverse the order of elements in the array.",
+      "Code": "np.array([1, 2, 3, 4])[::-1]",
+      "Result": "[4, 3, 2, 1]"
+    }
+  },
+  "set": {
+    "Name": "Set",
+    "Description": "Set the value of an element at a specific index.",
+    "Type": "Array Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "index", "type": "integer", "target": true },
+      { "name": "value", "type": "element", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Set the value of the element at index 2 to 5.",
+      "Code": "arr = np.array([1, 2, 3, 4]); arr[2] = 5",
+      "Result": "[1, 2, 5, 4]"
+    }
+  },
+  "shift": {
+    "Name": "Shift",
+    "Description": "Remove the first element from the array and return it.",
+    "Type": "Array Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "element", "source": true }],
+    "Example": {
+      "Explanation": "Remove the first element from the array.",
+      "Code": "np.array([1, 2, 3])[1:]",
+      "Result": "[2, 3]"
+    }
+  },
+  "size": {
+    "Name": "Size",
+    "Description": "Get the number of elements in the array.",
+    "Type": "Array Property",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "integer", "source": true }],
+    "Example": {
+      "Explanation": "Get the size (number of elements) of the array.",
+      "Code": "np.array([1, 2, 3, 4])size",
+      "Result": "4"
+    }
+  },
+  "slice": {
+    "Name": "Slice",
+    "Description": "Get a subarray by slicing the original array.",
+    "Type": "Array Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "start", "type": "integer", "target": true },
+      { "name": "stop", "type": "integer", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Slice the array to get elements from index 1 to 3.",
+      "Code": "np.array([1, 2, 3, 4])[1:3]",
+      "Result": "[2, 3]"
+    }
+  },
+  "any": {
+    "Name": "Some",
+    "Description": "Check if any element in the array satisfies the given condition.",
+    "Type": "Array Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "condition", "type": "function", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "boolean", "source": true }],
+    "Example": {
+      "Explanation": "Check if any element in the array is greater than 3.",
+      "Code": "np.any(np.array([1, 2, 3, 4]) > 3)",
+      "Result": "True"
+    }
+  },
+  "sort": {
+    "Name": "Sort",
+    "Description": "Sort the elements of the array in ascending order.",
+    "Type": "Array Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Sort the array in ascending order.",
+      "Code": "np.sort(np.array([4, 2, 1, 3]))",
+      "Result": "[1, 2, 3, 4]"
+    }
+  },
+  "argsort": {
+    "Name": "Sort Indices",
+    "Description": "Get the indices that would sort the array.",
+    "Type": "Array Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Get the indices that would sort the array.",
+      "Code": "np.argsort(np.array([4, 2, 1, 3]))",
+      "Result": "[2, 1, 3, 0]"
+    }
+  },
+  "standardize": {
+    "Name": "Standardize",
+    "Description": "Standardize the array by subtracting the mean and dividing by the standard deviation.",
+    "Type": "Array Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Standardize the array to have mean 0 and standard deviation 1.",
+      "Code": "arr = np.array([1, 2, 3, 4, 5]); (arr - np.mean(arr)) / np.std(arr)",
+      "Result": "[-1.414, -0.707, 0.000, 0.707, 1.414]"
+    }
+  },
+  "std": {
+    "Name": "Standard Deviation",
+    "Description": "Compute the standard deviation of the array.",
+    "Type": "Statistical Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Calculate the standard deviation of the elements in the array.",
+      "Code": "np.std(np.array([1, 2, 3, 4]))",
+      "Result": "1.118"
+    }
+  },
+  "sum": {
+    "Name": "Sum",
+    "Description": "Compute the sum of array elements.",
+    "Type": "Aggregation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Calculate the sum of the elements in the array.",
+      "Code": "np.sum(np.array([1, 2, 3, 4]))",
+      "Result": "10"
+    }
+  },
+  "insert": {
+    "Name": "Unshift",
+    "Description": "Add one or more elements to the beginning of the array.",
+    "Type": "Array Operation",
+    "Inputs": [
+      { "name": "array", "type": "numpy array", "target": true },
+      { "name": "element", "type": "element", "target": true }
+    ],
+    "Outputs": [{ "name": "result", "type": "numpy array", "source": true }],
+    "Example": {
+      "Explanation": "Add an element to the beginning of the array.",
+      "Code": "arr = np.array([1, 2, 3]); arr = np.insert(arr, 0, 0)",
+      "Result": "[0, 1, 2, 3]"
+    }
+  },
+  "var": {
+    "Name": "Variance",
+    "Description": "Compute the variance of the array.",
+    "Type": "Statistical Operation",
+    "Inputs": [{ "name": "array", "type": "numpy array", "target": true }],
+    "Outputs": [{ "name": "result", "type": "number", "source": true }],
+    "Example": {
+      "Explanation": "Calculate the variance of the elements in the array.",
+      "Code": "np.var(np.array([1, 2, 3, 4]))",
+      "Result": "1.25"
+    }
+  }
+}

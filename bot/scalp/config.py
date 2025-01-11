@@ -1,5 +1,5 @@
 
-timeframe = '1m'
+timeframe = '5m'
 leverage = 20
 invest = 10 # in USDT
 
@@ -26,23 +26,23 @@ accounts = [
     # }
 ]
 
-symbols = ['BNB/USDT']
+# symbols = ['LTC/USDT']
 
-# symbols = [
-#            'ETH/USDT',
-#            'BNB/USDT',
-#            'LTC/USDT',
-#            'SOL/USDT',
-#            'XRP/USDT',
-#            'ADA/USDT',
-#            'DASH/USDT',
-#            'DOT/USDT',
-#            'FTM/USDT',
-#            'NEAR/USDT',
-#            'AAVE/USDT',
-#            'GALA/USDT',
-#            'FET/USDT',
-#         ]
+symbols = [
+           'ETH/USDT',
+           'BNB/USDT',
+           'LTC/USDT',
+           'SOL/USDT',
+           'XRP/USDT',
+           'ADA/USDT',
+           'DASH/USDT',
+           'DOT/USDT',
+           'FTM/USDT',
+           'NEAR/USDT',
+           'AAVE/USDT',
+           'GALA/USDT',
+           'FET/USDT',
+        ]
 
 
 # no_btc_dependent = ['ADA/USDT', 'FTM/USDT', 'AAVE/USDT',  'FET/USDT']
@@ -52,4 +52,8 @@ no_btc_dependent = []
 bot_name = "Scalping Bot"
 notify = True # False for server run 
 
-support_resist_bar_width = 50
+support_resist_bar_width = 40
+
+
+# from_date = '2024-12-28 00:00:00'
+from_date = None

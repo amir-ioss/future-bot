@@ -5,7 +5,6 @@ import ccxt
 from datetime import datetime
 import asyncio
 import pandas as pd
-import json
 import talib
 import ccxt
 from paper import paper_trading
@@ -13,6 +12,9 @@ from order_block import find_order_blocks, find_order_blocks2
 from support_resistance import support_resistance, support_resistance_levels
 from luxalgo_support_resistance import luxalgo_support_resistance
 from utils import offset_index
+import json
+with open('data.json', 'r') as file:
+    mock_data = json.load(file)
 
 # Initialize Binance Testnet
 exchange = ccxt.binance(
@@ -31,18 +33,17 @@ def non_num(value, default=0):
     return default if value is None else float(value)
 
 
-def fetch_ohlcv(symbol="BTC/USDT", timeframe="1m", limit=10):
-    ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
-    # Unpack OHLCV data
-    time, open_, high, low, close, volume = zip(*ohlcv)
-    return {
-        "time": np.array(time),
-        "open": np.array(open_),
-        "high": np.array(high),
-        "low": np.array(low),
-        "close": np.array(close),
-        "volume": np.array(volume),
-    }
+def fetch_ohlcv(symbol="BTC/USDT", timeframe="1m", limit=1000):
+    # ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
+    ohlcv = mock_data[:limit]
+
+    # Convert to NumPy array and split into separate arrays
+    ohlcv_np = np.array(ohlcv, dtype=np.float64)
+    
+    # Split columns directly for improved performance
+    time, open_, high, low, close, volume = ohlcv_np.T
+    
+    return time, open_, high, low, close, volume
 
 
 # # Generate random data
@@ -69,6 +70,7 @@ def resolve_dependencies(queries):
     # Keep processing until all inputs are resolved
     while inputs:
         for key, formula in list(inputs.items()):
+            print("keykeykeykeykey", key)
             try:
                 if "paper_trading" in formula:
                     del inputs[key]
@@ -100,12 +102,12 @@ def resolve_dependencies(queries):
 
                 del inputs[key]  # Remove resolved item
                 print("\n\n\n\n\n==================================")
-                # print(key, formula)
+                print(key, formula)
                 # print(output[key])
                 break
             except Exception as e:
                 # Skip if dependencies are not resolved yet
-                print(f"Error executing {key}: {formula} -> {e}")
+                print(f"Error executing {key}: {formula}")
                 # Assign a fallback value, e.g., None
                 results[key] = None
                 del inputs[key]
@@ -135,7 +137,7 @@ def resolve_dependencies(queries):
 
 # LIVE
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict
@@ -221,14 +223,16 @@ def process(query):
 
 
 _inputs = {
-    "0": "fetch_ohlcv('BTC/USDT', '5m', 500)",
-    "1": "np.multiply(output['0']['high'],1.1)",
-    "2": "talib.SMA(output['1'],30)",
+    # "0": "fetch_ohlcv('BTC/USDT', '5m', 50)",
+    "0": "fetch_ohlcv('BTC/USDT', '5m', 50) -> ['time','open','high','low','close','volume']",
+    # "1": "np.multiply(output['0']['high'],1.1)",
+    "1": "talib.SMA(output['0']['high'],30)",
 }
 
 
 @app.post("/process/")
-async def receive_data(dynamic_data: DynamicData):
+async def receive_data(dynamic_data: DynamicData, response: Response):
+    response.headers["Cache-Control"] = "no-store"
 
     try:
         response = process(dynamic_data.data)
@@ -249,7 +253,7 @@ async def receive_data(dynamic_data: DynamicData):
 
 # res = process(_inputs)
 # output_ = resolve_dependencies(_inputs)
-# print("----------", output_['2'])
+# print("----------", output_['1'])
 
 # paper_trading(output['2'], output['3'], None, None, ohlcv=output['0'], starting_balance=1000, position_size=0.1, fee=0.001)
 
