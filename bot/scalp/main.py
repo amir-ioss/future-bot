@@ -231,12 +231,16 @@ class TradingBot:
 
         # Loop to print lines instead of drawing
         for i in range(min(minRange, n - 1) + 1):
+            # diff = (nwe[i] + sae) - (nwe[i] - sae)
+            # diff_perc = perc_diff((nwe[i] + sae), (nwe[i] - sae))
+            price = src[i]
 
-            diff = (nwe[i] + sae) - (nwe[i] - sae)
+            newHeight = price*0.005 # 0.5%
+            diff = max((nwe[i] + sae) - (nwe[i] - sae), (price+newHeight) - (price-newHeight))
+
             ch = diff * .4  # value + (value * (percentage / 100))
             # ch = diff + (diff * .10) #10%
             t = timestamp_to_HHMM(candles[i][0])
-            price = src[i]
             end = True if self.test else i == n-1
             # end2 = True if self.test else i == n-2
             end2 = True if self.test else i == n-1
@@ -392,10 +396,12 @@ class TradingBot:
                 if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
                 if inSL_short: print("Trade ignored coz of last SL")
                 if on_break: print("Trade ignored coz bullish breakout")
+                if isBullish: print("Trade ignored coz Bullish Candle")
+
 
             # if src[i] > nwe[i] + sae and end2:
                 print(f"\n\n\n\n\n",datetime.now().strftime('%H:%M'), f"▼ at {t} (close: {price}) {i} n-{n-1}")
-                if self.side != "SHORT" and not inSL_short and not freeze and not on_break:
+                if self.side != "SHORT" and not inSL_short and not freeze and not on_break and not isBullish:
                     # print(self.isOrderPlaced, self.side, self.targetReach)
                     log(f"{t} ============ {symbol} SHORT =============== on: {price}, SL: {price + ch}")
                     self.side = "SHORT"
@@ -425,10 +431,11 @@ class TradingBot:
                 if freeze: print(f"Trade freezed coz last SL and {symbol} is btc dependent")
                 if inSL_long: print("Trade ignored coz of last SL")
                 if on_break: print("Trade ignored coz bearish breakout")
+                if not isBullish: print("Trade ignored coz Bearish Candle")
 
 
                 print(f"\n\n\n\n\n", datetime.now().strftime('%H:%M'), f"▲ at {t} (close: {price}) {i} n{n-1}")
-                if self.side != "LONG" and not inSL_long and not freeze and not on_break:
+                if self.side != "LONG" and not inSL_long and not freeze and not on_break and isBullish:
                     log(f"{t} ============ {symbol} LONG =============== on: {price}, SL: {price - ch}" )
                     self.side = "LONG"
                     self.entryPrice = price

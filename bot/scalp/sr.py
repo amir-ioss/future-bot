@@ -59,12 +59,14 @@ def candles_obj(candles, length):
 
 def fetch_candles(symbol, timeframe='5m', limit=1000, retries=5, delay=5):
     attempt = 0  # To track the retry attempts
-    # since = int(datetime.strptime(from_date, '%Y-%m-%d %H:%M:%S').timestamp() * 1000)
+
+    if from_date: since = int(datetime.strptime(from_date, '%Y-%m-%d %H:%M:%S').timestamp() * 1000)
+    else: since = None
 
     while attempt < retries:
         try:
             # Try to fetch the OHLCV data
-            candles = exchange.fetch_ohlcv(symbol, timeframe, since=None, limit=limit)
+            candles = exchange.fetch_ohlcv(symbol, timeframe, since=since, limit=limit)
             return candles  # If successful, return the data
         except NetworkError as e:
             attempt += 1  # Increment the attempt counter
@@ -99,6 +101,8 @@ class TradingBot:
         self.super_sl = 0
         self.trailing = False
         self.pnl = 0
+        self.sl = None
+        self.brakeout = "AWAIT"
 
 
 
@@ -120,9 +124,10 @@ class TradingBot:
 
         # Support & Resist
         # low_pivot, high_pivot, breaks, wick_breaks, osc = luxalgo_support_resistance(candles_obj(candles, len(candles)), left_bars=support_resist_bar_width, right_bars=support_resist_bar_width)
-        # resist = high_pivot[-1]
-        # support = low_pivot[-1]
-        # print(F"resist : {resist} support : {support}")
+        # low_pivot_30m, high_pivot_30m, breaks, wick_breaks, osc = luxalgo_support_resistance(candles_obj(candles, len(candles)), left_bars=120, right_bars=120)
+        # resist_super = high_pivot_30m[-1]
+        # support_super = low_pivot_30m[-1]
+        # print(F"resist : {resist_30m} support : {support_30m}")
 
 
 
@@ -209,7 +214,8 @@ class TradingBot:
 
     
             # Support & Resist
-            low_pivot, high_pivot, breaks, wick_breaks, osc = luxalgo_support_resistance(candles_obj(candles[:i], i), left_bars=support_resist_bar_width, right_bars=support_resist_bar_width)
+            trimmed_candles = candles[max(0, i - 300):i]
+            low_pivot, high_pivot, breaks, wick_breaks, osc = luxalgo_support_resistance(candles_obj(trimmed_candles, i), left_bars=support_resist_bar_width, right_bars=support_resist_bar_width)
             resist = high_pivot[-1]
             support = low_pivot[-1]
 
@@ -230,15 +236,16 @@ class TradingBot:
 
 
             # print(price>resist)
+            # if support == 0 or resist == 0 or support_super == 0 or resist_super == 0 : continue
             if support == 0 or resist == 0 : continue
 
             if end:
-                print(t,"\n\n-----------------\n\nPNL : ", self.pnl)
+                print(t,f"\n\n--- {symbol} --- PNL : ", self.pnl)
             
 
 
         
-
+            log  = False
             # if end : print(datetime.now().strftime('%H:%M:%S') , symbol, "targetL:", targetL, "targetS:", targetS,  price, "Trade:",self.isOrderPlaced, "top:", top, "bot:", bot)
 
             if self.side == "SHORT" and self.isOrderPlaced:
@@ -248,29 +255,25 @@ class TradingBot:
                 if self.trailing:
                     self.side = None
                     self.isOrderPlaced = False
-                    print(t, f"{GREEN}WIN", cur_change, f'\n{RESET}')
+                    print(t, f"{GREEN}WIN", cur_change, f'\n{RESET}')if log else None
                     self.pnl += abs(cur_change)
                     self.trailing = False
 
                 if cur_change < -tp and self.isOrderPlaced:
                 # if cur_change > tp:  # LONG         
-                    print("trailing s....")
+                    print("trailing s....")if log else None
                     self.trailing = True
 
                 # if cur_change < -sl: # LONG
                 if cur_change > sl:                
                     self.side = None
                     self.isOrderPlaced = False
-                    print(t, f"{RED}LOS", cur_change, f'\n{RESET}')
+                    print(t, f"{RED}LOS", cur_change, f'\n{RESET}')if log else None
                     self.pnl -= cur_change
                     self.trailing = False
+                    self.sl= "SHORT"
                 
                 pass
-
-
-
-
-
 
 
 
@@ -281,40 +284,72 @@ class TradingBot:
                     if self.trailing:
                         self.side = None
                         self.isOrderPlaced = False
-                        print(t, f"{GREEN}WIN", cur_change, f'\n{RESET}')
+                        print(t, f"{GREEN}WIN", cur_change, f'\n{RESET}')if log else None
                         self.pnl += cur_change
                         self.trailing = False
 
                     # if cur_change < -tp:
                     if cur_change > tp and self.isOrderPlaced:  # LONG         
-                        print("trailing l....")
+                        print("trailing l....")if log else None
                         self.trailing = True
 
                     if cur_change < -sl: # LONG
                     # if cur_change > sl:                
                         self.side = None
                         self.isOrderPlaced = False
-                        print(t, f"{RED}LOS", cur_change, f'\n{RESET}')
+                        print(t, f"{RED}LOS", cur_change, f'\n{RESET}')if log else None
                         self.pnl += cur_change
                         self.trailing = False
+                        self.sl = "LONG"
                     
                     pass
 
 
 
-            # if price > resist and not self.isOrderPlaced:
-            #     self.side =  "SHORT"
-            #     print(t, F"SHORT ENTRY {symbol} resist : {resist} < {price}")
-            #     self.entryPrice = price
-            #     self.isOrderPlaced = True
-            #     self.trailing = False
+            if not self.isOrderPlaced:
+                self.brakeout  = "BULLISH" if price > resist else "BEARISH" if price < support else "AWAIT"
+            diff_price = resist-support
 
-            if price < support and not self.isOrderPlaced:
-                self.side = "LONG"
-                print(t, F"LONG ENTRY {symbol} support : {support} > {price}")
+            ch_from_resist = perc_diff_not_abs(resist, price)
+            # resist_bot = resist - (diff_price*0.25) 
+            resist_bot = resist 
+            resist_top = resist + (diff_price) 
+
+
+            if self.brakeout == "BULLISH" and price < resist  and not self.isOrderPlaced :
+            # if price > resist_bot and price < resist_top and not self.isOrderPlaced and not isBullish:
+            # and not price < resist_super:
+                # if price > resist and abs(ch_from_resist) > tp: continue
+                # if (price < support or self.sl == "LONG" and price > support):
+                self.side =  "LONG"
                 self.entryPrice = price
                 self.isOrderPlaced = True
                 self.trailing = False
+
+                trend = "bullish" if price > resist else "zone"
+
+                print(t, F"{self.side} ENTRY {symbol} brk:{trend} ch_from_resist: {ch_from_resist}")if log else None
+
+
+
+            ch_from_support = perc_diff_not_abs(support, price)
+            # support_top = support + (diff_price*0.25) 
+            support_top = support  
+            resist_bot = support - (diff_price) 
+
+            if self.brakeout == "BEARISH" and price > support  and not self.isOrderPlaced:
+            # if price < support_top and price > resist_bot and not self.isOrderPlaced and isBullish: 
+            # if (price < support or self.sl == "LONG" and price > support):
+                # if price < support and abs(ch_from_support) > tp: continue
+                # self.side = "SHORT" if self.sl == "LONG" else "LONG" 
+                self.side = "SHORT" 
+                self.entryPrice = price
+                self.isOrderPlaced = True
+                self.trailing = False
+                self.sl = None
+
+                trend = "bearish" if price < support else "zone"
+                print(t, F"{self.side} ENTRY {symbol} brk:{trend} ch_from_support: {ch_from_support}")if log else None
 
 
         return self.side, candles[-1]
@@ -325,10 +360,11 @@ class TradingBot:
     def run(self):
         for symbol in symbols:
             self.pnl = 0
+            self.sl = None
             self.isOrderPlaced = False
             self.trailing = False
             self.analyse(symbol)
-            time.sleep(5)
+            time.sleep(1)
         return
 
         # Create exchange instances
